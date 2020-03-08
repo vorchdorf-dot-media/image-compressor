@@ -51,6 +51,28 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, { isClient, isDev }) {
+      config.module.rules.push({
+        test: /\.wasm$/,
+        loader: 'file-loader',
+        options: {
+          name: 'wasm/[name]_[hash:8].[ext]'
+        }
+      });
+
+      if (isClient) {
+        config.module.rules.push({
+          test: /\.worker\.ts$/,
+          use: [
+            {
+              loader: 'worker-loader',
+              options: {
+                name: 'worker_[hash:8].js'
+              }
+            }
+          ]
+        });
+      }
+    }
   }
-}
+};

@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@saschazar/wasm-image-loader": "^2.0.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@nuxt/typescript-runtime": "^0.4.0",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@types/emscripten": "^1.39.2",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
@@ -32,6 +34,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.1.0",
     "prettier": "^1.19.1",
-    "vue-jest": "^4.0.0-0"
+    "vue-jest": "^4.0.0-0",
+    "worker-loader": "^2.0.0"
   }
 }
