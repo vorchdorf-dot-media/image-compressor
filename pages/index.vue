@@ -1,65 +1,58 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">@saschazar/image-encoder</h1>
-      <h2 class="subtitle">
-        A WebAssembly-powered website to decode/encode images
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
-      </div>
-    </div>
-  </div>
+  <main>
+    <ThumbnailContainer />
+    <div>Main</div>
+    <MenuContainer />
+  </main>
 </template>
 
 <script lang="ts">
-import Logo from '~/components/Logo.vue';
+import MenuContainer from '~/components/menu-container/index.vue';
+import ThumbnailContainer from '~/components/thumbnail-container/index.vue';
 
 export default {
   components: {
-    Logo
+    MenuContainer,
+    ThumbnailContainer
   }
 };
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
+
+:root {
+  --color-default: #f3f7f0;
+  --color-bg: #002626;
+  --color-bg-light: #0e4749;
+  --color-light: #74b3ce;
+  --color-alert: #f2545b;
+  --color-success: #95c623;
+  --color-grey: #424c55;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-default);
+  font-family: 'Open Sans Condensed', -apple-system, system-ui,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+main {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(64px, 1fr) 80% minmax(64px, 1fr);
   align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  justify-items: stretch;
+  height: 100vh;
+  min-width: 0;
+  max-width: 100vw;
+  overflow: hidden;
 }
 </style>
