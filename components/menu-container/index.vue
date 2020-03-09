@@ -1,5 +1,5 @@
 <template>
-  <div class="container" />
+  <div class="container">Menu Container</div>
 </template>
 
 <script lang="ts">
@@ -12,6 +12,8 @@ export default Vue.extend({});
   box-shadow: inset 0px 5px 10px -5px var(--color-bg-dark);
   height: 100%;
   width: 100%;
+  background: var(--color-grey);
+  color: var(--color-default);
   overflow: hidden;
 }
 </style>

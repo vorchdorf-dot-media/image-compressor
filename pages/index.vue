@@ -1,18 +1,20 @@
 <template>
   <main>
     <ThumbnailContainer />
-    <div style="background: var(--color-grey);">Main</div>
+    <PreviewContainer />
     <MenuContainer />
   </main>
 </template>
 
 <script lang="ts">
 import MenuContainer from '~/components/menu-container/index.vue';
+import PreviewContainer from '~/components/preview-container/index.vue';
 import ThumbnailContainer from '~/components/thumbnail-container/index.vue';
 
 export default {
   components: {
     MenuContainer,
+    PreviewContainer,
     ThumbnailContainer
   }
 };
