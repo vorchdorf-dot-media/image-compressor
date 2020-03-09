@@ -9,7 +9,7 @@ export default Vue.extend({});
 
 <style scoped>
 .container {
-  box-shadow: inset 0px 5px 10px var(--color-bg);
+  box-shadow: inset 0px 5px 10px -5px var(--color-bg-dark);
   height: 100%;
   width: 100%;
   overflow: hidden;

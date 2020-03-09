@@ -1,7 +1,7 @@
 <template>
   <main>
     <ThumbnailContainer />
-    <div>Main</div>
+    <div style="background: var(--color-grey);">Main</div>
     <MenuContainer />
   </main>
 </template>
@@ -22,13 +22,14 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
 
 :root {
-  --color-default: #f3f7f0;
-  --color-bg: #002626;
-  --color-bg-light: #0e4749;
-  --color-light: #74b3ce;
-  --color-alert: #f2545b;
-  --color-success: #95c623;
-  --color-grey: #424c55;
+  --color-default: #fff7db;
+  --color-bg: #163663;
+  --color-bg-dark: #03161e;
+  --color-light: #71aeca;
+  --color-alert: #cd5334;
+  --color-success: #7e8f66;
+  --color-brown: #703806;
+  --color-grey: #424b54;
 }
 
 body {
@@ -48,8 +49,7 @@ main {
     'footer';
   grid-template-columns: 1fr;
   grid-template-rows: minmax(64px, 1fr) 80% minmax(64px, 1fr);
-  align-items: center;
-  justify-items: stretch;
+  align-items: stretch;
   height: 100vh;
   min-width: 0;
   max-width: 100vw;
