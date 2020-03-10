@@ -21,25 +21,25 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
 :root {
   --color-default: #fff7db;
   --color-bg: #163663;
   --color-bg-dark: #03161e;
   --color-light: #71aeca;
-  --color-alert: #cd5334;
-  --color-success: #7e8f66;
+  --color-alert: #9e2b25;
+  --color-success: #357266;
   --color-brown: #703806;
-  --color-grey: #424b54;
+  --color-grey: #66717e;
 }
 
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-default);
-  font-family: 'Open Sans Condensed', -apple-system, system-ui,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  fill: var(--color-default);
+  font-family: 'Roboto Condensed', -apple-system, system-ui, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   box-sizing: border-box;
 }
 
@@ -50,11 +50,31 @@ main {
     'main'
     'footer';
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(64px, 1fr) 80% minmax(64px, 1fr);
+  grid-template-rows: minmax(auto, 64px) auto minmax(auto, 64px);
   align-items: stretch;
   height: 100vh;
   min-width: 0;
   max-width: 100vw;
   overflow: hidden;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+svg {
+  min-height: 0;
+  min-width: 0;
+  height: 2em;
+  width: 2em;
+  max-height: 32px;
+  max-width: 32px;
+  fill: inherit;
+  stroke: inherit;
+  stroke-width: inherit;
 }
 </style>
