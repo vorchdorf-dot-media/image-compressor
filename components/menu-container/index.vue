@@ -2,7 +2,7 @@
   <div class="container">
     <AddItem />
     <DownloadItem />
-    <SettingsItem />
+    <MoreItem />
   </div>
 </template>
 
@@ -10,24 +10,17 @@
 import Vue from 'vue';
 import AddItem from '~/components/menu-container/add-item/index.vue';
 import DownloadItem from '~/components/menu-container/download-item/index.vue';
-import SettingsItem from '~/components/menu-container/settings-item/index.vue';
+import MoreItem from '~/components/menu-container/more-item/index.vue';
 export default Vue.extend({
   components: {
     DownloadItem,
     AddItem,
-    SettingsItem
+    MoreItem
   }
 });
 </script>
 
 <style lang="scss" scoped>
-@keyframes circle-grow {
-  to {
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-  }
-}
 .container {
   display: grid;
   align-items: stretch;
@@ -52,11 +45,10 @@ export default Vue.extend({
 
   > button {
     display: flex;
-    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: inset 0 0 5px -2px rgba(0, 0, 0, 0.333);
+    box-shadow: inset 0 0 15px -5px rgba(0, 0, 0, 0.667);
     padding: 0.25rem 0.5rem;
     text-align: center;
 
@@ -64,19 +56,6 @@ export default Vue.extend({
       color: var(--color-grey);
       fill: var(--color-grey);
       opacity: 0.5;
-    }
-
-    &:focus::after {
-      animation: circle-grow 500ms ease-out;
-      position: absolute;
-      content: '';
-      border-radius: 9999px;
-      background-color: rgba(0, 0, 0, 0.333);
-      width: 0;
-      height: 0;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
     }
 
     &:not(:last-child) {

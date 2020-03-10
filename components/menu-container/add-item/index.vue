@@ -23,6 +23,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 span {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 </style>

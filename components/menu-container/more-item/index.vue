@@ -1,16 +1,16 @@
 <template>
   <button :disabled="false" @click="logger">
-    <CogIcon />
-    <span>Settings</span>
+    <MoreAltIcon />
+    <span>More</span>
   </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import CogIcon from '~/components/icon/cog.vue';
+import MoreAltIcon from '~/components/icon/more-alt.vue';
 export default Vue.extend({
   components: {
-    CogIcon
+    MoreAltIcon
   },
   methods: {
     logger(e: MouseEvent) {
@@ -23,6 +23,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 span {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 </style>

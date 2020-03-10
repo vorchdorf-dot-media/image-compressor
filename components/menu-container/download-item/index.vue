@@ -1,7 +1,7 @@
 <template>
   <button :disabled="false" @click="logger">
     <DownloadIcon />
-    <span>Download</span>
+    <span>Save</span>
   </button>
 </template>
 
@@ -30,6 +30,6 @@ button:not([disabled]) {
 
 span {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 </style>

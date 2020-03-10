@@ -20,8 +20,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+@keyframes circle-grow {
+  to {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+}
+
 :root {
   --color-default: #fff7db;
   --color-bg: #163663;
@@ -59,11 +68,25 @@ main {
 }
 
 button {
+  position: relative;
   border: none;
   padding: 0;
   background: transparent;
   text-transform: uppercase;
   letter-spacing: 0.25em;
+
+  &:focus::after {
+    animation: circle-grow 500ms ease-out;
+    position: absolute;
+    content: '';
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.333);
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
 }
 
 svg {
