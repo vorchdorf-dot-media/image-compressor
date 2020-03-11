@@ -7,9 +7,6 @@
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  methods: {
-    logger: (e: Event) => console.log(e)
-  },
   props: {
     error: Boolean,
     loading: Boolean,
@@ -18,6 +15,9 @@ export default Vue.extend({
       required: true
     },
     success: Boolean
+  },
+  methods: {
+    logger: (e: Event) => console.log(e)
   }
 });
 </script>

@@ -1155,6 +1155,16 @@
   resolved "https://registry.yarnpkg.com/@saschazar/wasm-image-loader/-/wasm-image-loader-2.0.0.tgz#df82214ec4c83962f21fc04c4524c5ce1472ed58"
   integrity sha512-yYT+qi2ddxny4b/3AiYnEkLxjNS/Y7MYiS4N91OI2QxPwxwDvBYNHJEGLTaL/cOxZ0C1EGAQpERfF9p2bxeo/Q==
 
+"@saschazar/wasm-mozjpeg@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@saschazar/wasm-mozjpeg/-/wasm-mozjpeg-1.0.2.tgz#e340b5467586e61f028707b433c3d7512f3b1bee"
+  integrity sha512-0qBYGqr4qJ2maMzOaefBhMd/t2diCMDiUDfN7hSurKT/jIYkuC1n7LkjgN3weNYw8OL9QozmWDiGUsICGjed8w==
+
+"@saschazar/wasm-webp@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@saschazar/wasm-webp/-/wasm-webp-1.1.2.tgz#4042e32a9b653be756ce49e01b2a0da56241ce27"
+  integrity sha512-3y+5MVvcQFQlJTojWZRJg07lsgCR1YZrmtKiNkUcUM4h4eDJOeTo0reAgsLNYcJQ3OTWML+QmdU8UUGrA7hV0Q==
+
 "@types/anymatch@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
@@ -8044,6 +8054,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
+shvl@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.0.tgz#55fd550b6e81bf7574f2f576b8b5c1ffae74e10f"
+  integrity sha512-WbpzSvI5XgVGJ3A4ySGe8hBxj0JgJktfnoLhhJmvITDdK21WPVWwgG8GPlYEh4xqdti3Ff7PJ5G0QrRAjNS0Ig==
+
 sigmund@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
@@ -9057,6 +9072,14 @@ vue-template-es2015-compiler@^1.9.0:
 vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
+
+vuex-persistedstate@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-2.7.1.tgz#25ced829ea5789a2ed7d71a1ba057eb01a5235ad"
+  integrity sha512-Ktvp6Bt6ApYj35MuxTClu+9Lpukcgl3Z/0o4PU12+Z4jU6lyOMzos0k6zGT5xrukAkGM1VV3EYNwz1TnHPhgFA==
+  dependencies:
+    deepmerge "^4.2.2"
+    shvl "^2.0.0"
 
 vuex@^3.1.2:
   version "3.1.2"

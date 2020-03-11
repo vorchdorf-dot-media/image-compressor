@@ -16,6 +16,8 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@saschazar/wasm-image-loader": "^2.0.0",
+    "@saschazar/wasm-mozjpeg": "^1.0.2",
+    "@saschazar/wasm-webp": "^1.1.2",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
@@ -37,6 +39,7 @@
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
     "vue-jest": "^4.0.0-0",
+    "vuex-persistedstate": "^2.7.1",
     "worker-loader": "^2.0.0"
   }
 }
