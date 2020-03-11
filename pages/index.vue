@@ -44,7 +44,12 @@ export default {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background: linear-gradient(
+    0deg,
+    var(--color-bg) 66.67%,
+    var(--color-bg-dark) calc(100% - 64px)
+  );
   color: var(--color-default);
   fill: var(--color-default);
   font-family: 'Roboto Condensed', -apple-system, system-ui, BlinkMacSystemFont,

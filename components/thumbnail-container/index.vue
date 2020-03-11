@@ -26,6 +26,5 @@ export default Vue.extend({
   background: var(--color-bg-dark);
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 </style>

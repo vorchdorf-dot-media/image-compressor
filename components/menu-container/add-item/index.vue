@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="false" @click="logger">
+  <button :disabled="false" @click="open">
     <CirclePlusIcon aria-hidden />
     <span>Add Image</span>
   </button>
@@ -13,7 +13,7 @@ export default Vue.extend({
     CirclePlusIcon
   },
   methods: {
-    logger(e: MouseEvent) {
+    open(e: MouseEvent) {
       console.log(e);
     }
   }

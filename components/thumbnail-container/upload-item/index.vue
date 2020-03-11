@@ -26,12 +26,13 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-left: 0.5px solid rgba(255, 255, 255, 0.333);
   min-width: 64px;
   padding: 0.25rem 0.5rem;
 
   &:not([disabled]) {
-    box-shadow: inset 0 0 15px -3px rgba(0, 0, 0, 0.667);
+    box-shadow: inset 0 0 15px -3px rgba(0, 0, 0, 0.667),
+      0 0 15px 5px var(--color-bg);
+    border-bottom-left-radius: 16px;
     background-color: var(--color-light);
     fill: var(--color-bg-dark);
     color: var(--color-bg-dark);
