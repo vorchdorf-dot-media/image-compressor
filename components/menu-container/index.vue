@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <AddItem />
+    <ResetItem />
     <DownloadItem />
     <MoreItem />
   </div>
@@ -8,14 +8,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import AddItem from '~/components/menu-container/add-item/index.vue';
 import DownloadItem from '~/components/menu-container/download-item/index.vue';
 import MoreItem from '~/components/menu-container/more-item/index.vue';
+import ResetItem from '~/components/menu-container/reset-item/index.vue';
 export default Vue.extend({
   components: {
     DownloadItem,
-    AddItem,
-    MoreItem
+    MoreItem,
+    ResetItem
   }
 });
 </script>
@@ -34,7 +34,6 @@ export default Vue.extend({
   background: var(--color-default);
   color: var(--color-brown);
   fill: var(--color-brown);
-  overflow: hidden;
   z-index: 9999;
 
   > * {

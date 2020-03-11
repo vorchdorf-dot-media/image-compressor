@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="false" @click="logger">
+  <button :disabled="clear" @click="logger">
     <DownloadIcon />
     <span>Save</span>
   </button>
@@ -7,11 +7,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
+import { STATE } from '~/store/statemachine';
 import DownloadIcon from '~/components/icon/download.vue';
 export default Vue.extend({
   components: {
     DownloadIcon
   },
+  computed: mapState('statemachine', {
+    clear: (state: any) => state.state === STATE.CLEAR
+  }),
   methods: {
     logger(e: MouseEvent) {
       console.log(e);

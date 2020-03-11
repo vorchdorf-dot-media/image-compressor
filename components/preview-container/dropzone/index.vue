@@ -2,12 +2,13 @@
   <div class="dropzone" @click="open">
     <CirclePlusIcon />
     Tap or click to open an image. Drag &amp; drop to include it directly.
-    <input ref="fileupload" type="file" />
+    <input ref="fileupload" type="file" @change="change" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { STATE } from '~/store/statemachine';
 import CirclePlusIcon from '~/components/icon/circle-plus.vue';
 export default Vue.extend({
   components: {
@@ -17,6 +18,9 @@ export default Vue.extend({
     open(e: MouseEvent) {
       const input: any = this.$refs.fileupload;
       return input && input.click();
+    },
+    change(e: Event) {
+      return this.$store.commit('statemachine/set', STATE.IMAGE);
     }
   }
 });
