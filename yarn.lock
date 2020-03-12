@@ -1150,6 +1150,11 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@saschazar/wasm-exif@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@saschazar/wasm-exif/-/wasm-exif-1.0.1.tgz#296733e722ff7f4315416986054cf35e89bbb841"
+  integrity sha512-BwurMqczVvReBIuBhVTwpHuA53veiCCZOu4800Wv5G/yUhXFFcS3DLm8cPWTWrKbDE5EDoaQqZxlqj2s6UNycw==
+
 "@saschazar/wasm-image-loader@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@saschazar/wasm-image-loader/-/wasm-image-loader-2.0.0.tgz#df82214ec4c83962f21fc04c4524c5ce1472ed58"
@@ -3825,6 +3830,14 @@ expect@^24.9.0:
     jest-matcher-utils "^24.9.0"
     jest-message-util "^24.9.0"
     jest-regex-util "^24.9.0"
+
+exports-loader@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/exports-loader/-/exports-loader-0.7.0.tgz#84881c784dea6036b8e1cd1dac3da9b6409e21a5"
+  integrity sha512-RKwCrO4A6IiKm0pG3c9V46JxIHcDplwwGJn6+JJ1RcVnh/WSGJa0xkmk5cRVtgOPzCAtTMGj2F7nluh9L0vpSA==
+  dependencies:
+    loader-utils "^1.1.0"
+    source-map "0.5.0"
 
 express@^4.16.3:
   version "4.17.1"
@@ -8152,6 +8165,11 @@ source-map-support@^0.5.6, source-map-support@~0.5.12:
 source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
+
+source-map@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.0.tgz#0fe96503ac86a5adb5de63f4e412ae4872cdbe86"
+  integrity sha1-D+llA6yGpa213mP05BKuSHLNvoY=
 
 source-map@0.5.6:
   version "0.5.6"

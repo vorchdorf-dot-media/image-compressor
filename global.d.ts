@@ -1,9 +1,8 @@
 declare module '*.worker.ts' {
-  class TestWorker extends Worker {
+  class WebpackWorker extends Worker {
     constructor();
   }
-
-  export default TestWorker;
+  export default WebpackWorker;
 }
 
 declare module '*.vue' {

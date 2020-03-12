@@ -8,8 +8,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Exif } from '@saschazar/wasm-exif';
+import readAsBuffer from '~/assets/helpers/filereader';
 import { STATE } from '~/store/statemachine';
 import CirclePlusIcon from '~/components/icon/circle-plus.vue';
+
+export interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
 export default Vue.extend({
   components: {
     CirclePlusIcon
@@ -19,7 +26,21 @@ export default Vue.extend({
       const input: any = this.$refs.fileupload;
       return input && input.click();
     },
-    change(e: Event) {
+    async change(e: HTMLInputEvent) {
+      let image = {};
+      const { target: { files = [] } = {} } = e || {};
+      const self: any = this;
+      const exifWorker = await self.$worker.exif();
+
+      exifWorker.onmessage = ({ data }: { data: Exif }) => {
+        image = Object.assign({}, image, data || null);
+        exifWorker.terminate();
+      };
+
+      if (files?.length) {
+        const buffer = await readAsBuffer(files[0]);
+        exifWorker.postMessage({ buffer });
+      }
       return this.$store.commit('statemachine/set', STATE.IMAGE);
     }
   }

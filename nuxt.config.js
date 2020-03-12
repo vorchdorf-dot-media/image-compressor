@@ -29,7 +29,11 @@ export default {
    */
   plugins: [
     {
-      src: '~/plugins/localstorage.ts',
+      src: '~/plugins/localstorage',
+      ssr: false
+    },
+    {
+      src: '~/plugins/worker',
       ssr: false
     }
   ],
@@ -57,26 +61,26 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, { isClient, isDev }) {
+      config.output.globalObject = 'this';
+
+      config.module.rules.push({
+        test: /wasm_[a-z0-9_]+\.js$/,
+        loader: 'exports-loader'
+      });
+
       config.module.rules.push({
         test: /\.wasm$/,
         loader: 'file-loader',
+        type: 'javascript/auto',
         options: {
           name: 'wasm/[name]_[hash:8].[ext]'
         }
       });
 
       if (isClient) {
-        config.module.rules.push({
-          test: /\.worker\.ts$/,
-          use: [
-            {
-              loader: 'worker-loader',
-              options: {
-                name: 'worker_[hash:8].js'
-              }
-            }
-          ]
-        });
+        config.node = {
+          fs: 'empty'
+        };
       }
     }
   }

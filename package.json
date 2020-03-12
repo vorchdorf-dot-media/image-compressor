@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@saschazar/wasm-exif": "^1.0.1",
     "@saschazar/wasm-image-loader": "^2.0.0",
     "@saschazar/wasm-mozjpeg": "^1.0.2",
     "@saschazar/wasm-webp": "^1.1.2",
@@ -34,6 +35,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.2",
+    "exports-loader": "^0.7.0",
     "jest": "^24.1.0",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
