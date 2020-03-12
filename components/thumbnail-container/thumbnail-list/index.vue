@@ -7,8 +7,7 @@
       <li>
         <span>
           <strong>{{ images.length > 9 ? '9+' : images.length }}</strong>
-          <br />
-          images
+          <br />images
         </span>
       </li>
     </ul>
@@ -39,13 +38,19 @@ ul {
   display: flex;
   position: relative;
   flex-wrap: nowrap;
-  align-items: stretch;
+  align-items: center;
+  align-self: flex-start;
   justify-content: flex-start;
-  height: 100%;
+  height: calc(100% + 16px);
   margin: 0;
-  padding: 0;
+  padding: 0 0 16px;
   overflow-x: scroll;
   list-style-type: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 li {
