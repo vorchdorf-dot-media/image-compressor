@@ -8,12 +8,16 @@ export default (
   ) => void
 ) =>
   inject('worker', {
-    exif: async (): Promise<Worker> =>
-      new (
-        await import('worker-loader!~/assets/worker/exif.worker.ts')
-      ).default(),
     decode: async (): Promise<Worker> =>
       new (
         await import('worker-loader!~/assets/worker/decode.worker.ts')
+      ).default(),
+    encode: async (): Promise<Worker> =>
+      new (
+        await import('worker-loader!~/assets/worker/encode.worker.ts')
+      ).default(),
+    exif: async (): Promise<Worker> =>
+      new (
+        await import('worker-loader!~/assets/worker/exif.worker.ts')
       ).default()
   });
