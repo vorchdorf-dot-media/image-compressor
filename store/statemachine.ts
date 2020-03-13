@@ -4,12 +4,18 @@ export enum STATE {
   OPTIONS
 }
 
-export const state = (): { state: STATE } => ({
+export interface StateMachine {
+  state: STATE;
+  id?: string;
+}
+
+export const state = (): StateMachine => ({
   state: STATE.CLEAR
 });
 
 export const mutations = {
-  set(state: { state: STATE }, update: STATE) {
-    return (state.state = update);
+  set(current: StateMachine, update: StateMachine) {
+    current.state = update.state;
+    current.id = update.id;
   }
 };

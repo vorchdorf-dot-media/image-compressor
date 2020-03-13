@@ -1,15 +1,17 @@
 <template>
   <div class="dropzone" @click="open">
-    <CirclePlusIcon />
-    Tap or click to open an image. Drag &amp; drop to include it directly.
+    <CirclePlusIcon />Tap or click to open an image. Drag &amp; drop to include
+    it directly.
     <input ref="fileupload" type="file" @change="change" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import nanoid from 'nanoid/non-secure';
 import { Exif } from '@saschazar/wasm-exif';
 import readAsBuffer from '~/assets/helpers/filereader';
+import { WorkerPayload } from '~/assets/worker/definitions';
 import { STATE } from '~/store/statemachine';
 import CirclePlusIcon from '~/components/icon/circle-plus.vue';
 
@@ -27,21 +29,44 @@ export default Vue.extend({
       return input && input.click();
     },
     async change(e: HTMLInputEvent) {
-      let image = {};
       const { target: { files = [] } = {} } = e || {};
+      if (files?.length) {
+        await this.decode(files);
+      }
+    },
+    async decode(fileList: FileList | any[]) {
+      let buffer: Uint8Array;
+      let image = {};
       const self: any = this;
+      const id = nanoid(7);
+      const decodeWorker = await self.$worker.decode();
       const exifWorker = await self.$worker.exif();
+
+      decodeWorker.onmessage = ({ data }: { data: WorkerPayload }) => {
+        if (data?.options?.mimetype === 'image/jpeg') {
+          exifWorker.postMessage({ buffer });
+        } else {
+          exifWorker.terminate();
+        }
+
+        console.log(data);
+        decodeWorker.terminate();
+      };
 
       exifWorker.onmessage = ({ data }: { data: Exif }) => {
         image = Object.assign({}, image, data || null);
+        console.log(data);
         exifWorker.terminate();
       };
 
-      if (files?.length) {
-        const buffer = await readAsBuffer(files[0]);
-        exifWorker.postMessage({ buffer });
+      if (fileList.length) {
+        buffer = await readAsBuffer(fileList[0]);
+        decodeWorker.postMessage({
+          buffer,
+          options: { mimetype: fileList[0].type }
+        });
+        this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
       }
-      return this.$store.commit('statemachine/set', STATE.IMAGE);
     }
   }
 });
