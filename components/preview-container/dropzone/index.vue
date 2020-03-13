@@ -36,7 +36,6 @@ export default Vue.extend({
     },
     async decode(fileList: FileList | any[]) {
       let buffer: Uint8Array;
-      let image = {};
       const self: any = this;
       const id = nanoid(7);
       const decodeWorker = await self.$worker.decode();
@@ -48,14 +47,17 @@ export default Vue.extend({
         } else {
           exifWorker.terminate();
         }
-
-        console.log(data);
+        this.$store.commit('originals/set', {
+          id,
+          buffer: data.buffer,
+          ...data.options
+        });
+        this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
         decodeWorker.terminate();
       };
 
       exifWorker.onmessage = ({ data }: { data: Exif }) => {
-        image = Object.assign({}, image, data || null);
-        console.log(data);
+        this.$store.commit('queue/set', { id, exif: data });
         exifWorker.terminate();
       };
 
@@ -65,7 +67,6 @@ export default Vue.extend({
           buffer,
           options: { mimetype: fileList[0].type }
         });
-        this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
       }
     }
   }
