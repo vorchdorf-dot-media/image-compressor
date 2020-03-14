@@ -57,7 +57,11 @@ export default Vue.extend({
       };
 
       exifWorker.onmessage = ({ data }: { data: Exif }) => {
-        this.$store.commit('queue/set', { id, exif: data });
+        const title = fileList[0]?.name;
+        this.$store.commit(
+          'queue/set',
+          Object.assign({}, { id, exif: data }, title ? { title } : null)
+        );
         exifWorker.terminate();
       };
 

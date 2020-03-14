@@ -8,15 +8,16 @@ export interface ImageModel extends ImageStore {
   exif?: Exif;
 }
 
-export const state = () => ({
-  images: new Map<string, ImageModel>()
+export const state = (): { images: { [key: string]: ImageModel } } => ({
+  images: {}
 });
 
 export const mutations = {
-  set(state: { images: Map<string, ImageModel> }, image: ImageModel) {
-    state.images.set(image.id, image);
+  set(current: { images: { [key: string]: ImageModel } }, image: ImageModel) {
+    current.images = { ...current.images, [image.id]: image };
   },
-  delete(state: { images: Map<string, ImageModel> }, id: string) {
-    state.images.delete(id);
+  delete(current: { images: { [key: string]: ImageModel } }, id: string) {
+    const { [id]: toDelete, ...images } = current.images;
+    current.images = { ...images };
   }
 };
