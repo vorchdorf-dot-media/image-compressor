@@ -7,3 +7,7 @@ export const mutations = {
     return (state.options = { ...state.options, ...updated });
   }
 };
+
+export const getters = {
+  options: (current: { options: EncodeOptions }) => current.options
+};

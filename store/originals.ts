@@ -6,15 +6,22 @@ export interface ImageStore {
   width: number;
 }
 
-export const state = () => ({
+export const state = (): { images: Map<string, ImageStore> } => ({
   images: new Map<string, ImageStore>()
 });
 
 export const mutations = {
-  set(state: { images: Map<string, ImageStore> }, image: ImageStore) {
-    state.images.set(image.id, image);
+  set(current: { images: Map<string, ImageStore> }, image: ImageStore) {
+    const model = current.images.get(image.id);
+    const updated = Object.assign({}, model || null, image);
+    current.images.set(image.id, updated);
   },
-  delete(state: { images: Map<string, ImageStore> }, id: string) {
-    state.images.delete(id);
+  delete(current: { images: Map<string, ImageStore> }, id: string) {
+    current.images.delete(id);
   }
+};
+
+export const getters = {
+  image: (current: { images: Map<string, ImageStore> }) => (id: string) =>
+    current.images.get(id)
 };

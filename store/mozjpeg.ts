@@ -7,3 +7,7 @@ export const mutations = {
     return (state.options = { ...state.options, ...update });
   }
 };
+
+export const getters = {
+  options: (current: { options: MozJPEGOptions }) => current.options
+};

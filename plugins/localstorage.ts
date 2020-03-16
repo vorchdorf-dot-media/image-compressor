@@ -8,7 +8,8 @@ declare module window {
 const plugin: Plugin = (ctx: Context) =>
   window.onNuxtReady(() =>
     createPersistedState({
-      key: 'img'
+      key: 'img',
+      paths: ['mozjpeg', 'statemachine.format', 'webp']
     })(ctx.store)
   );
 

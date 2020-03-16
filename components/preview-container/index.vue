@@ -1,15 +1,25 @@
 <template>
-  <div class="container">
+  <div v-if="state === 0" class="container">
     <Dropzone />
+  </div>
+  <div v-else class="container">
+    <Preview />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Dropzone from '~/components/preview-container/dropzone/index.vue';
+import Preview from '~/components/preview-container/preview/index.vue';
 export default Vue.extend({
   components: {
-    Dropzone
+    Dropzone,
+    Preview
+  },
+  computed: {
+    state() {
+      return this.$store.state.statemachine.state;
+    }
   }
 });
 </script>
