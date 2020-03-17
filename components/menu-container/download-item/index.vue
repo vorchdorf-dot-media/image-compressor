@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="!url">
+  <button :disabled="!blob" @click="download">
     <DownloadIcon />
     <span>Save</span>
   </button>
@@ -14,7 +14,14 @@ export default Vue.extend({
     DownloadIcon
   },
   computed: mapState('statemachine', {
-    url: ({ state: { url } }: any) => url && url.length,
+    blob() {
+      const image = this.$store.getters['queue/image'](this.id);
+      if (image && image.buffer) {
+        return new Blob([image.buffer], { type: image.mimetype });
+      }
+      return null;
+    },
+    id: ({ state: { id } }: any) => id,
     title(state: any) {
       const {
         state: { id }
@@ -26,7 +33,15 @@ export default Vue.extend({
         `.min.${mimetype === 'image/webp' ? 'webp' : 'jpg'}`
       );
     }
-  })
+  }),
+  methods: {
+    download() {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(this.blob);
+      a.download = this.title;
+      a.click();
+    }
+  }
 });
 </script>
 
