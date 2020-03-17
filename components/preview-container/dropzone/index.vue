@@ -42,11 +42,11 @@ export default Vue.extend({
       const exifWorker = await self.$worker.exif();
 
       decodeWorker.onmessage = ({ data }: { data: WorkerPayload }) => {
-        if (data?.options?.mimetype === 'image/jpeg') {
-          exifWorker.postMessage({ buffer });
-        } else {
-          exifWorker.terminate();
-        }
+        const title = fileList[0]?.name;
+        this.$store.commit(
+          'queue/set',
+          Object.assign({}, { id }, title ? { title } : null)
+        );
         this.$store.commit('originals/set', {
           id,
           buffer: data.buffer,
@@ -54,14 +54,16 @@ export default Vue.extend({
         });
         this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
         decodeWorker.terminate();
+
+        if (data?.options?.mimetype === 'image/jpeg') {
+          exifWorker.postMessage({ buffer });
+        } else {
+          exifWorker.terminate();
+        }
       };
 
       exifWorker.onmessage = ({ data }: { data: Exif }) => {
-        const title = fileList[0]?.name;
-        this.$store.commit(
-          'queue/set',
-          Object.assign({}, { id, exif: data }, title ? { title } : null)
-        );
+        this.$store.commit('queue/set', { id, exif: data });
         exifWorker.terminate();
       };
 

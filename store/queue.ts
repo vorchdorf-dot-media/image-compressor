@@ -4,6 +4,14 @@ import { EncoderPayload } from '~/assets/worker/encode.worker';
 import { Exif } from '@saschazar/wasm-exif';
 import { ImageStore } from '~/store/originals';
 
+export enum UPLOAD {
+  INCOMPLETE,
+  READY,
+  LOADING,
+  SUCCESS,
+  ERROR
+}
+
 export interface QueueStore {
   images: { [key: string]: ImageModel };
   update?: Date;
@@ -14,6 +22,7 @@ export interface ImageModel extends ImageStore {
   title?: string;
   description?: string;
   exif?: Exif;
+  upload?: UPLOAD;
 }
 
 export const state = (): QueueStore => ({
@@ -22,9 +31,15 @@ export const state = (): QueueStore => ({
 
 export const mutations = {
   set(current: QueueStore, image: ImageModel) {
+    const title = image.title || current.images[image.id].title;
     current.images = {
       ...current.images,
-      [image.id]: { ...current.images[image.id], ...image }
+      [image.id]: Object.assign(
+        {},
+        current.images[image.id],
+        title && title.length ? { upload: UPLOAD.READY } : null,
+        image
+      )
     };
     current.update = new Date();
   },

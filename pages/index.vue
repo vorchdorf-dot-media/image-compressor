@@ -66,8 +66,11 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: minmax(auto, 64px) auto minmax(auto, 64px);
   align-items: stretch;
-  height: 100vh;
+  min-height: 0;
   min-width: 0;
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
   max-width: 100vw;
   overflow: hidden;
 }

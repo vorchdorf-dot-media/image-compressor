@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="false" @click="logger">
+  <button :disabled="disabled" @click="logger">
     <CloudUploadIcon />
     <span>Upload</span>
   </button>
@@ -11,6 +11,12 @@ import CloudUploadIcon from '~/components/icon/cloud-upload.vue';
 export default Vue.extend({
   components: {
     CloudUploadIcon
+  },
+  props: {
+    disabled: {
+      type: Boolean,
+      required: true
+    }
   },
   methods: {
     logger(e: MouseEvent) {

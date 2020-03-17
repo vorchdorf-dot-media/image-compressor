@@ -1,23 +1,62 @@
 <template>
-  <button :class="{ error, loading, success }" @click="logger">
+  <button
+    class="thumbnail-list-item"
+    :class="{ active, error, loading, ready, success }"
+    @click="open"
+  >
     <img :src="src" />
   </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
+import { UPLOAD } from '~/store/queue';
+import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   props: {
-    error: Boolean,
-    loading: Boolean,
-    src: {
+    image: {
       type: String,
       required: true
     },
-    success: Boolean
+    src: {
+      type: String,
+      required: true
+    }
   },
+  computed: mapState('queue', {
+    active() {
+      const { id } = this.$store.getters['statemachine/state'];
+      return id === this.image;
+    },
+    upload(current: any) {
+      const { upload } = current.images[this.image] || {};
+      return upload;
+    },
+    error() {
+      return this.upload === UPLOAD.ERROR;
+    },
+    disabled() {
+      return !this.upload;
+    },
+    loading() {
+      return this.upload === UPLOAD.LOADING;
+    },
+    ready() {
+      return this.upload === UPLOAD.READY;
+    },
+    success() {
+      return this.upload === UPLOAD.SUCCESS;
+    }
+  }),
   methods: {
-    logger: (e: Event) => console.log(e)
+    open(e: MouseEvent) {
+      e.preventDefault();
+      this.$store.commit('statemachine/set', {
+        state: STATE.IMAGE,
+        id: this.image
+      });
+    }
   }
 });
 </script>
@@ -29,21 +68,23 @@ export default Vue.extend({
   }
 }
 
-button {
+.thumbnail-list-item {
   position: relative;
   border-radius: 50%;
-  border: 4px solid var(--thumbnail-border, var(--color-light));
-  box-shadow: 0 2px 10px -3px var(--thumbnail-border, var(--color-light));
+  border: 4px solid var(--thumbnail-border, var(--color-grey));
+  box-shadow: 0 2px 10px -3px var(--thumbnail-border, var(--color-grey));
   margin: 4px;
   height: 48px;
   width: 48px;
 
   &::after {
+    animation: none;
+    transition: top 200ms ease-out;
     content: '';
     display: none;
     position: absolute;
     border-radius: inherit;
-    border: 6px solid var(--thumbnail-border, var(--color-light));
+    border: 6px solid var(--thumbnail-border, var(--color-grey));
     height: 0;
     width: 0;
     top: -8px;
@@ -59,12 +100,19 @@ img {
   object-fit: cover;
 }
 
+.active,
 .error,
 .loading,
+.ready,
 .success {
   &::after {
     display: block;
   }
+}
+
+.active::after {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .error {
@@ -77,6 +125,10 @@ img {
 
 .loading::after {
   animation: rotating 3s infinite;
+}
+
+.ready {
+  --thumbnail-border: var(--color-light);
 }
 
 .success {

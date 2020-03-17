@@ -18,12 +18,9 @@ export default Vue.extend({
     src(store: any) {
       const current = store.queue.images[this.id];
       const { buffer = new Uint8Array(), mimetype } = current || {};
-      if (buffer.length) {
-        const url = URL.createObjectURL(new Blob([buffer], { type: mimetype }));
-        this.$store.commit('statemachine/set', { url });
-        return url;
-      }
-      return null;
+      return buffer.length
+        ? URL.createObjectURL(new Blob([buffer], { type: mimetype }))
+        : null;
     }
   }),
   mounted() {

@@ -20,7 +20,10 @@ export default Vue.extend({
   methods: {
     open(e: MouseEvent) {
       e.preventDefault();
-      return this.$store.commit('statemachine/set', { state: STATE.CLEAR });
+      return this.$store.commit('statemachine/set', {
+        state: STATE.CLEAR,
+        id: null
+      });
     }
   }
 });

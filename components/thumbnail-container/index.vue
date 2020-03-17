@@ -1,19 +1,34 @@
 <template>
   <div class="container">
-    <ThumbnailList />
-    <UploadItem />
+    <ThumbnailList :images="images" />
+    <UploadItem :disabled="!images.length" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import ThumbnailList from '~/components/thumbnail-container/thumbnail-list/index.vue';
 import UploadItem from '~/components/thumbnail-container/upload-item/index.vue';
 export default Vue.extend({
   components: {
     ThumbnailList,
     UploadItem
-  }
+  },
+  computed: mapState('queue', {
+    images: ({ images }: any) => {
+      return Object.keys(images)
+        .filter((key: string) => images[key].buffer)
+        .map((key: string) => {
+          const { buffer, mimetype } = images[key];
+          return {
+            id: key,
+            src: URL.createObjectURL(new Blob([buffer], { type: mimetype }))
+          };
+        })
+        .reverse();
+    }
+  })
 });
 </script>
 

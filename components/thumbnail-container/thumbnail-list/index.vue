@@ -1,13 +1,14 @@
 <template>
   <div class="list-container">
     <ul v-if="images.length > 0">
-      <li v-for="({ src }, i) in images" :key="i">
-        <ThumbnailListItem :src="src" />
+      <li v-for="({ id, src }, i) in images" :key="i">
+        <ThumbnailListItem :image="id" :src="src" />
       </li>
       <li>
         <span>
           <strong>{{ images.length > 9 ? '9+' : images.length }}</strong>
-          <br />images
+          <br />
+          {{ images.length > 1 ? 'images' : 'image' }}
         </span>
       </li>
     </ul>
@@ -21,16 +22,12 @@ export default Vue.extend({
   components: {
     ThumbnailListItem
   },
-  data: () => ({
-    images: [
-      { src: '//source.unsplash.com/random/320x240' },
-      { src: '//source.unsplash.com/random/320x240' },
-      { src: '//source.unsplash.com/random/320x240' },
-      { src: '//source.unsplash.com/random/320x240' },
-      { src: '//source.unsplash.com/random/320x240' },
-      { src: '//source.unsplash.com/random/320x240' }
-    ]
-  })
+  props: {
+    images: {
+      type: Array,
+      required: true
+    }
+  }
 });
 </script>
 <style lang="scss" scoped>

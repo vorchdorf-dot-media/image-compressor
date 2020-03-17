@@ -23,11 +23,8 @@ export default Vue.extend({
     },
     id: ({ state: { id } }: any) => id,
     title(state: any) {
-      const {
-        state: { id }
-      } = state;
       const { title, mimetype }: { title: string; mimetype: string } =
-        this.$store.getters['queue/image'](id) || {};
+        this.$store.getters['queue/image'](this.id) || {};
       return title.replace(
         /\.[a-z0-9]+$/i,
         `.min.${mimetype === 'image/webp' ? 'webp' : 'jpg'}`
