@@ -15,7 +15,7 @@ export default Vue.extend({
     EraserIcon
   },
   computed: mapState('statemachine', {
-    clear: (state: any) => state.state === STATE.CLEAR
+    clear: ({ state: { state } }: any) => state === STATE.CLEAR
   }),
   methods: {
     open(e: MouseEvent) {

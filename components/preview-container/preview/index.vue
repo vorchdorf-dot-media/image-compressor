@@ -1,83 +1,33 @@
 <template>
-  <div class="container" @load="encode">
-    <img v-if="buffer.length" :src="src" />
+  <div class="container">
+    <img v-if="src" :src="src" />
     <SpinnerArrow v-else class="spinner" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import SpinnerArrow from '~/components/icon/spinner-arrow.vue';
-import { WorkerPayload } from '~/assets/worker/definitions';
-import { ImageStore } from '~/store/originals';
-import { ImageModel } from '~/store/queue';
 export default Vue.extend({
   components: {
     SpinnerArrow
   },
-  data(): {
-    id: string;
-    buffer?: Uint8Array;
-    format: string;
-    original: ImageStore;
-    queue: ImageModel;
-  } {
-    const { id, format } = this.$store.state.statemachine;
-    return {
-      id,
-      buffer: new Uint8Array(),
-      format,
-      original: this.$store.getters['originals/image'](id),
-      queue: this.$store.getters['queue/image'](id)
-    };
-  },
-  computed: {
-    src() {
-      const id = this.$store.state.statemachine.id;
-      if (this.buffer) {
-        const current = this.$store.getters['queue/image'](id);
-        const blob = new Blob([current.buffer], { type: current.mimetype });
-        return URL.createObjectURL(blob);
+  computed: mapState({
+    id: (store: any) => store.statemachine.state.id,
+    src(store: any) {
+      const current = store.queue.images[this.id];
+      const { buffer = new Uint8Array(), mimetype } = current || {};
+      if (buffer.length) {
+        const url = URL.createObjectURL(new Blob([buffer], { type: mimetype }));
+        this.$store.commit('statemachine/set', { url });
+        return url;
       }
-      return '';
+      return null;
     }
-  },
+  }),
   mounted() {
-    this.encode();
-  },
-  methods: {
-    async encode() {
-      const self: any = this;
-      const format = this.format === 'image/webp' ? 'webp' : 'mozjpeg';
-      const { buffer, height, id, width } = this.original;
-      const encodeWorker = await self.$worker.encode();
-
-      encodeWorker.onmessage = ({ data }: { data: WorkerPayload }) => {
-        if (data) {
-          this.buffer = data.buffer;
-
-          this.$store.commit('queue/set', {
-            id,
-            buffer: data.buffer,
-            mimetype: data?.options?.mimetype,
-            height: data?.options?.height,
-            width: data?.options?.width
-          });
-        }
-        encodeWorker.terminate();
-      };
-
-      const payload = {
-        buffer,
-        encoder: this.$store.getters[`${format}/options`],
-        options: {
-          height,
-          width,
-          mimetype: this.format
-        }
-      };
-      return encodeWorker.postMessage(payload);
-    }
+    this.$store.dispatch('queue/encode');
   }
 });
 </script>

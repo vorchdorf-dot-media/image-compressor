@@ -1,3 +1,8 @@
+export interface OriginalsStore {
+  images: Map<string, ImageStore>;
+  update?: Date;
+}
+
 export interface ImageStore {
   buffer: Uint8Array;
   height: number;
@@ -6,22 +11,22 @@ export interface ImageStore {
   width: number;
 }
 
-export const state = (): { images: Map<string, ImageStore> } => ({
+export const state = (): OriginalsStore => ({
   images: new Map<string, ImageStore>()
 });
 
 export const mutations = {
-  set(current: { images: Map<string, ImageStore> }, image: ImageStore) {
+  set(current: OriginalsStore, image: ImageStore) {
     const model = current.images.get(image.id);
     const updated = Object.assign({}, model || null, image);
     current.images.set(image.id, updated);
+    current.update = new Date();
   },
-  delete(current: { images: Map<string, ImageStore> }, id: string) {
+  delete(current: OriginalsStore, id: string) {
     current.images.delete(id);
   }
 };
 
 export const getters = {
-  image: (current: { images: Map<string, ImageStore> }) => (id: string) =>
-    current.images.get(id)
+  image: (current: OriginalsStore) => (id: string) => current.images.get(id)
 };

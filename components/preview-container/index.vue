@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state === 0" class="container">
+  <div v-if="clear" class="container">
     <Dropzone />
   </div>
   <div v-else class="container">
@@ -9,18 +9,18 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import Dropzone from '~/components/preview-container/dropzone/index.vue';
 import Preview from '~/components/preview-container/preview/index.vue';
+import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   components: {
     Dropzone,
     Preview
   },
-  computed: {
-    state() {
-      return this.$store.state.statemachine.state;
-    }
-  }
+  computed: mapState('statemachine', {
+    clear: ({ state: { state } }: any) => state === STATE.CLEAR
+  })
 });
 </script>
 

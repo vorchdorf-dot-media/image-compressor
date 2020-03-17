@@ -15,7 +15,7 @@ export default Vue.extend({
     MoreAltIcon
   },
   computed: mapState('statemachine', {
-    clear: (state: any) => state.state === STATE.CLEAR
+    clear: ({ state: { state } }: any) => state === STATE.CLEAR
   }),
   methods: {
     logger(e: MouseEvent) {

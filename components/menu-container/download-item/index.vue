@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="clear" @click="logger">
+  <button :disabled="!url">
     <DownloadIcon />
     <span>Save</span>
   </button>
@@ -8,20 +8,25 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
-import { STATE } from '~/store/statemachine';
 import DownloadIcon from '~/components/icon/download.vue';
 export default Vue.extend({
   components: {
     DownloadIcon
   },
   computed: mapState('statemachine', {
-    clear: (state: any) => state.state === STATE.CLEAR
-  }),
-  methods: {
-    logger(e: MouseEvent) {
-      console.log(e);
+    url: ({ state: { url } }: any) => url && url.length,
+    title(state: any) {
+      const {
+        state: { id }
+      } = state;
+      const { title, mimetype }: { title: string; mimetype: string } =
+        this.$store.getters['queue/image'](id) || {};
+      return title.replace(
+        /\.[a-z0-9]+$/i,
+        `.min.${mimetype === 'image/webp' ? 'webp' : 'jpg'}`
+      );
     }
-  }
+  })
 });
 </script>
 
