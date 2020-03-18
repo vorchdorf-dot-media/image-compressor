@@ -2,7 +2,11 @@
   <div class="container">
     <img v-if="src" :src="src" />
     <div v-if="src" class="overlay">
-      <button @click="remove"><CloseIcon /><span>Remove</span></button>
+      <Size />
+      <button @click="remove">
+        <CloseIcon />
+        <span>Remove</span>
+      </button>
     </div>
     <SpinnerArrow v-else class="spinner" />
   </div>
@@ -11,19 +15,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import { ImageEncoderStore } from '~/assets/helpers/store';
 import CloseIcon from '~/components/icon/close.vue';
+import Size from '~/components/preview-container/preview/size/index.vue';
 import SpinnerArrow from '~/components/icon/spinner-arrow.vue';
 import { STATE } from '~/store/statemachine';
+
 export default Vue.extend({
   components: {
     CloseIcon,
+    Size,
     SpinnerArrow
   },
   computed: mapState({
-    id: (store: any) => store.statemachine.state.id,
-    src(store: any) {
-      const current = store.queue.images[this.id];
-      const { buffer = new Uint8Array(), mimetype } = current || {};
+    id: ({
+      statemachine: {
+        state: { id }
+      }
+    }: ImageEncoderStore): string => id || '',
+    src({ queue: { images } }: ImageEncoderStore) {
+      const { buffer = new Uint8Array(), mimetype } = images[this.id] || {};
       return buffer.length
         ? URL.createObjectURL(new Blob([buffer], { type: mimetype }))
         : null;
@@ -33,7 +44,7 @@ export default Vue.extend({
     this.$store.dispatch('queue/encode');
   },
   methods: {
-    remove() {
+    remove(): void {
       this.$store.commit('queue/delete', this.id);
       this.$store.commit('originals/delete', this.id);
       this.$store.commit('statemachine/set', { state: STATE.CLEAR, id: null });
@@ -91,8 +102,8 @@ button {
 
 .overlay {
   position: absolute;
-  background: linear-gradient(to bottom, transparent, var(--color-bg-dark));
-  top: 66.666%;
+  background: linear-gradient(to bottom, transparent 50%, var(--color-bg-dark));
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;

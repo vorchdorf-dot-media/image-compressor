@@ -4,6 +4,7 @@
   </div>
   <div v-else class="container">
     <Preview />
+    <Options v-if="options" />
   </div>
 </template>
 
@@ -11,15 +12,18 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 import Dropzone from '~/components/preview-container/dropzone/index.vue';
+import Options from '~/components/preview-container/options/index.vue';
 import Preview from '~/components/preview-container/preview/index.vue';
 import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   components: {
     Dropzone,
+    Options,
     Preview
   },
   computed: mapState('statemachine', {
-    clear: ({ state: { state } }: any) => state === STATE.CLEAR
+    clear: ({ state: { state } }: any): Boolean => state === STATE.CLEAR,
+    options: ({ state: { state } }: any): Boolean => state === STATE.OPTIONS
   })
 });
 </script>

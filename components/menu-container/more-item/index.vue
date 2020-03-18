@@ -19,7 +19,8 @@ export default Vue.extend({
   }),
   methods: {
     logger(e: MouseEvent) {
-      console.log(e);
+      e.preventDefault();
+      this.$store.commit('statemachine/set', { state: STATE.OPTIONS });
     }
   }
 });

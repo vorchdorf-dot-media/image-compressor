@@ -24,25 +24,25 @@ export default Vue.extend({
     CirclePlusIcon
   },
   methods: {
-    open(e: MouseEvent) {
+    open(e: MouseEvent): void {
       const input: any = this.$refs.fileupload;
       return input && input.click();
     },
-    async change(e: HTMLInputEvent) {
+    async change(e: HTMLInputEvent): Promise<void> {
       const { target: { files = [] } = {} } = e || {};
       if (files?.length) {
         await this.decode(files);
       }
     },
-    async decode(fileList: FileList | any[]) {
+    async decode(fileList: FileList | any[]): Promise<void> {
       let buffer: Uint8Array;
       const self: any = this;
       const id = nanoid(7);
       const decodeWorker = await self.$worker.decode();
       const exifWorker = await self.$worker.exif();
 
-      decodeWorker.onmessage = ({ data }: { data: WorkerPayload }) => {
-        const title = fileList[0]?.name;
+      decodeWorker.onmessage = ({ data }: { data: WorkerPayload }): void => {
+        const { name: title, size } = fileList[0];
         this.$store.commit(
           'queue/set',
           Object.assign({}, { id }, title ? { title } : null)
@@ -50,6 +50,7 @@ export default Vue.extend({
         this.$store.commit('originals/set', {
           id,
           buffer: data.buffer,
+          size,
           ...data.options
         });
         this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
@@ -62,7 +63,7 @@ export default Vue.extend({
         }
       };
 
-      exifWorker.onmessage = ({ data }: { data: Exif }) => {
+      exifWorker.onmessage = ({ data }: { data: Exif }): void => {
         this.$store.commit('queue/set', { id, exif: data });
         exifWorker.terminate();
       };

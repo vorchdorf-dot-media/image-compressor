@@ -8,6 +8,7 @@ export interface ImageStore {
   height: number;
   id: string;
   mimetype?: string;
+  size?: number;
   width: number;
 }
 

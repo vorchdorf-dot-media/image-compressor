@@ -10,7 +10,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
-import { UPLOAD } from '~/store/queue';
+import { UPLOAD, ImageModel } from '~/store/queue';
 import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   props: {
@@ -28,7 +28,9 @@ export default Vue.extend({
       const { id } = this.$store.getters['statemachine/state'];
       return id === this.image;
     },
-    upload(current: any) {
+    upload(current: {
+      images: { [key: string]: ImageModel };
+    }): UPLOAD | undefined {
       const { upload } = current.images[this.image] || {};
       return upload;
     },
