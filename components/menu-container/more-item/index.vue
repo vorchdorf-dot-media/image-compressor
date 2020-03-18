@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="clear" @click="logger">
+  <button :disabled="disabled" @click="logger">
     <MoreAltIcon />
     <span>More</span>
   </button>
@@ -15,7 +15,7 @@ export default Vue.extend({
     MoreAltIcon
   },
   computed: mapState('statemachine', {
-    clear: ({ state: { state } }: any) => state === STATE.CLEAR
+    disabled: ({ state: { state } }: any) => state !== STATE.IMAGE
   }),
   methods: {
     logger(e: MouseEvent) {

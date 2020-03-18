@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <img v-if="src" :src="src" />
+    <div v-if="src" class="overlay">
+      <button @click="remove"><CloseIcon /><span>Remove</span></button>
+    </div>
     <SpinnerArrow v-else class="spinner" />
   </div>
 </template>
@@ -8,9 +11,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import CloseIcon from '~/components/icon/close.vue';
 import SpinnerArrow from '~/components/icon/spinner-arrow.vue';
+import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   components: {
+    CloseIcon,
     SpinnerArrow
   },
   computed: mapState({
@@ -25,6 +31,13 @@ export default Vue.extend({
   }),
   mounted() {
     this.$store.dispatch('queue/encode');
+  },
+  methods: {
+    remove() {
+      this.$store.commit('queue/delete', this.id);
+      this.$store.commit('originals/delete', this.id);
+      this.$store.commit('statemachine/set', { state: STATE.CLEAR, id: null });
+    }
   }
 });
 </script>
@@ -45,10 +58,44 @@ img {
   width: 100%;
 }
 
+button {
+  transition: border-color 200ms ease-in;
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 5px 10px -3px var(--color-alert);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-color: var(--color-alert);
+  color: var(--color-default);
+  fill: var(--color-default);
+  padding: 0.5rem;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+
+  &:hover {
+    border-color: var(--color-default);
+  }
+
+  > span {
+    margin-left: 0.5rem;
+  }
+}
+
 .container {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, var(--color-bg-dark));
+  top: 66.666%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .spinner {

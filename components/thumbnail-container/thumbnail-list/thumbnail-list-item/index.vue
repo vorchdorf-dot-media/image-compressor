@@ -1,7 +1,6 @@
 <template>
   <button
-    class="thumbnail-list-item"
-    :class="{ active, error, loading, ready, success }"
+    :class="{ active, error, loading: loading && !active, ready, success }"
     @click="open"
   >
     <img :src="src" />
@@ -68,7 +67,7 @@ export default Vue.extend({
   }
 }
 
-.thumbnail-list-item {
+button {
   position: relative;
   border-radius: 50%;
   border: 4px solid var(--thumbnail-border, var(--color-grey));
@@ -112,7 +111,8 @@ img {
 
 .active::after {
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .error {

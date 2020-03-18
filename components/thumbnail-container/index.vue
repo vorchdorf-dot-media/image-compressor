@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ThumbnailList :images="images" />
-    <UploadItem :disabled="!images.length" />
+    <UploadItem :disabled="!ready || !ready.length" />
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import Vue from 'vue';
 import { mapState } from 'vuex';
 import ThumbnailList from '~/components/thumbnail-container/thumbnail-list/index.vue';
 import UploadItem from '~/components/thumbnail-container/upload-item/index.vue';
+import { UPLOAD } from '~/store/queue';
 export default Vue.extend({
   components: {
     ThumbnailList,
@@ -20,13 +21,19 @@ export default Vue.extend({
       return Object.keys(images)
         .filter((key: string) => images[key].buffer)
         .map((key: string) => {
-          const { buffer, mimetype } = images[key];
+          const { buffer, mimetype, upload } = images[key];
           return {
             id: key,
-            src: URL.createObjectURL(new Blob([buffer], { type: mimetype }))
+            src: URL.createObjectURL(new Blob([buffer], { type: mimetype })),
+            upload
           };
         })
         .reverse();
+    },
+    ready() {
+      return this.images.filter(
+        ({ upload }: { upload: UPLOAD }) => upload === UPLOAD.READY
+      );
     }
   })
 });
