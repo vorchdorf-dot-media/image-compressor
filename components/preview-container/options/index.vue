@@ -1,25 +1,55 @@
 <template>
   <section>
     <h2>Options</h2>
-    <div></div>
-    <button @click="save">
-      <CheckmarkIcon />
-      <span>Save</span>
-    </button>
+    <component :is="activeComponent" @data="update" />
+    <div class="button-container">
+      <div class="button-group">
+        <button
+          :class="{ active: activeComponent === MetaForm }"
+          @click="activeComponent = MetaForm"
+        >
+          Meta
+        </button>
+        <button
+          :class="{ active: activeComponent === EncoderForm }"
+          @click="activeComponent = EncoderForm"
+        >
+          Encode
+        </button>
+      </div>
+      <button @click="save">
+        <CheckmarkIcon />
+        <span>Save</span>
+      </button>
+    </div>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import CheckmarkIcon from '~/components/icon/checkmark.vue';
+import EncoderForm from '~/components/preview-container/options/encoder/index.vue';
+import MetaForm from '~/components/preview-container/options/meta/index.vue';
 import { STATE } from '~/store/statemachine';
 export default Vue.extend({
   components: {
-    CheckmarkIcon
+    CheckmarkIcon,
+    EncoderForm,
+    MetaForm
+  },
+  data() {
+    return {
+      activeComponent: EncoderForm,
+      EncoderForm,
+      MetaForm
+    };
   },
   methods: {
     save() {
       this.$store.commit('statemachine/set', { state: STATE.IMAGE });
+    },
+    update(e: any) {
+      console.log(e);
     }
   }
 });
@@ -49,10 +79,11 @@ section {
   grid-template-rows: auto 1fr auto;
   box-shadow: 0 -5px 10px -3px var(--color-bg-dark);
   border-radius: 8px;
+  border-top: 1px solid var(--color-bg);
   background: var(--color-bg-dark);
   color: var(--color-default);
   fill: var(--color-default);
-  padding: 1rem;
+  padding: 1rem 1rem;
   min-height: 0;
   min-width: 0;
   max-height: 100%;
@@ -82,6 +113,32 @@ button {
 
   > span {
     margin-left: 0.5rem;
+  }
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 1rem;
+  min-width: 0;
+  width: 100%;
+
+  button {
+    transition: background-color 200ms ease-in, color 200ms ease-in;
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+    border-radius: 0;
+    border: 2px solid var(--color-light);
+    background: transparent;
+    margin: 0;
+    width: 100%;
+  }
+
+  .active {
+    background: var(--color-light);
+    color: var(--color-bg-dark);
+    fill: var(--color-bg-dark);
   }
 }
 </style>
