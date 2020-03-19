@@ -1,15 +1,31 @@
 <template>
   <form @submit="onSubmit">
+    <h2>Encode Options</h2>
     <div class="input-container">
-      <span class="quality" :class="{ bad, good }">{{ quality }}%</span>
-      <input
-        id="quality-input"
-        type="range"
-        step="1"
-        :value="quality || defaultQuality"
-        @input="quality = $event.target.value"
-      />
       <label for="quality-input">Quality</label>
+      <div class="button-container quality-buttons">
+        <button
+          :disabled="quality === 0"
+          @click="(evt) => setQuality(evt, --quality)"
+        >
+          <MinusIcon />
+        </button>
+        <div class="input-wrapper">
+          <input
+            id="quality-input"
+            type="number"
+            :value="quality || defaultQuality"
+            @keyup="(evt) => setQuality(evt, parseInt(evt.target.value, 10))"
+          />
+        </div>
+        <button
+          :disabled="quality === 100"
+          @click="(evt) => setQuality(evt, ++quality)"
+        >
+          <PlusIcon />
+        </button>
+      </div>
+      <label for="resize-input">Resize</label>
       <div class="button-container">
         <button
           v-for="size in sizes"
@@ -24,11 +40,11 @@
             id="resize-input"
             :value="resize || original"
             type="number"
-            @keyup="resize = parseInt($event.target.value, 10)"
+            @keyup="(evt) => setSize(evt, parseInt($event.target.value, 10))"
           />
         </div>
       </div>
-      <label for="resize-input">Resize</label>
+      <span>Format</span>
       <div class="button-container format-buttons">
         <button
           v-for="encoding in formats"
@@ -39,7 +55,6 @@
           {{ encoding }}
         </button>
       </div>
-      <span>Format</span>
     </div>
   </form>
 </template>
@@ -47,10 +62,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import MinusIcon from '~/components/icon/minus.vue';
+import PlusIcon from '~/components/icon/plus.vue';
 import { FORMATS as formats } from '~/assets/helpers/formats';
 import { SIZES } from '~/assets/helpers/sizes';
 import { ImageEncoderStore } from '~/assets/helpers/store';
 export default Vue.extend({
+  components: {
+    MinusIcon,
+    PlusIcon
+  },
   data(): {
     formats: string[];
     format?: string;
@@ -65,9 +86,6 @@ export default Vue.extend({
     };
   },
   computed: mapState({
-    bad(): Boolean {
-      return this.quality < 60;
-    },
     defaultFormat(): string {
       const { format } = this.$store.getters['statemachine/state'];
       this.format = format?.split('/').pop();
@@ -78,9 +96,6 @@ export default Vue.extend({
       const { quality } = this.$store.getters[`${format}/options`];
       this.quality = quality;
       return quality;
-    },
-    good(): Boolean {
-      return this.quality > 80;
     },
     id: ({
       statemachine: {
@@ -104,6 +119,10 @@ export default Vue.extend({
       e.preventDefault();
       this.format = format;
     },
+    setQuality(e: KeyboardEvent, quality: number): void {
+      e.preventDefault();
+      this.quality = quality;
+    },
     setSize(e: MouseEvent, size: number): void {
       e.preventDefault();
       this.resize = size;
@@ -113,6 +132,20 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h2 {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  opacity: 0.5;
+}
+
 span,
 label {
   font-size: 0.875em;
@@ -132,41 +165,10 @@ label {
   min-width: 0;
 }
 
-.quality {
-  position: relative;
-  --color-background: var(--color-bg);
-  --color-text: var(--color-default);
-  border-radius: 4px;
-  padding: 0.25em 0.5em;
-  background: var(--color-background);
-  color: var(--color-text);
-  fill: var(--color-text);
-
-  &::after {
-    content: '';
-    position: absolute;
-    border: 4px solid transparent;
-    border-left-color: var(--color-background);
-    height: 0;
-    width: 0;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-  }
-}
-
-.bad {
-  --color-bg: var(--color-alert);
-}
-
-.good {
-  --color-bg: var(--color-success);
-}
-
 .button-container {
   display: inherit;
-  grid-column: 1 / span 2;
-  grid-template-columns: repeat(3, 1fr);
+  grid-column: 2 / span 2;
+  grid-template-columns: repeat(3, auto);
   align-items: stretch;
   min-height: 0;
   height: 100%;
@@ -177,6 +179,10 @@ label {
     padding: 0.25em 0.5em;
     background: var(--color-button-bg, transparent);
     color: var(--color-button-text, inherit);
+
+    &:disabled {
+      opacity: 0.333;
+    }
 
     &.active {
       --color-button-bg: var(--color-bg);
@@ -208,7 +214,6 @@ label {
 }
 
 .input-wrapper {
-  --color-fill: red;
   position: relative;
   border: 1px solid var(--color-bg-dark);
 
@@ -224,6 +229,23 @@ label {
     top: 50%;
     right: 0.25em;
     transform: translateY(-50%);
+  }
+}
+
+.quality-buttons {
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+
+  button {
+    &:first-child {
+      border-right: none;
+    }
+    &:last-child {
+      border-left: none;
+    }
+  }
+
+  .input-wrapper {
+    border-left: 1px solid var(--color-bg-dark);
   }
 }
 
