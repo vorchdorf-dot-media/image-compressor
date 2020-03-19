@@ -1,23 +1,21 @@
 <template>
   <form>
     <div class="input-container">
-      <span class="quality" :class="{ bad, good }">{{ quality }}</span>
+      <span class="quality" :class="{ bad, good }">{{ quality }}%</span>
       <input
         id="quality-input"
         type="range"
         step="1"
         :value="quality || defaultQuality"
-        @change="quality = $event.target.value"
+        @input="quality = $event.target.value"
       />
       <label for="quality-input">Quality</label>
-    </div>
-    <div class="input-container">
       <div class="button-container">
         <button
           v-for="size in sizes"
           :key="size"
           :class="{ active: resize === size }"
-          @click="(evt) => setSize(evt, size)"
+          @change="(evt) => setSize(evt, size)"
         >
           {{ size }}
         </button>
@@ -31,8 +29,6 @@
         </div>
       </div>
       <label for="resize-input">Resize</label>
-    </div>
-    <div class="input-container">
       <div class="button-container format-buttons">
         <button
           v-for="encoding in formats"
@@ -55,7 +51,12 @@ import { FORMATS as formats } from '~/assets/helpers/formats';
 import { SIZES } from '~/assets/helpers/sizes';
 import { ImageEncoderStore } from '~/assets/helpers/store';
 export default Vue.extend({
-  data() {
+  data(): {
+    formats: string[];
+    format?: string;
+    quality: number;
+    resize: number;
+  } {
     return {
       formats,
       format: undefined,
@@ -67,16 +68,16 @@ export default Vue.extend({
     bad(): Boolean {
       return this.quality < 60;
     },
-    defaultFormat({
-      statemachine: {
-        state: { format }
-      }
-    }: ImageEncoderStore): void {
+    defaultFormat(): string {
+      const { format } = this.$store.getters['statemachine/state'];
       this.format = format?.split('/').pop();
+      return this.format;
     },
-    defaultQuality(store: ImageEncoderStore): void {
-      const format: string = this.format || 'webp';
-      this.quality = store[format].options.quality;
+    defaultQuality(): void {
+      const format: string = this.format || this.defaultFormat || 'webp';
+      const { quality } = this.$store.getters[`${format}/options`];
+      this.quality = quality;
+      return quality;
     },
     good(): Boolean {
       return this.quality > 80;
@@ -111,6 +112,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 span,
 label {
+  font-size: 0.875em;
+  text-align: right;
   text-transform: uppercase;
   letter-spacing: 0.25em;
 }
@@ -118,13 +121,12 @@ label {
 .input-container {
   display: grid;
   grid-template-columns: auto 1fr auto;
+  grid-auto-rows: minmax(44px, auto);
   column-gap: 1rem;
+  row-gap: 1rem;
   align-items: center;
-  min-height: 44px;
-
-  + .input-container {
-    margin-top: 1rem;
-  }
+  min-height: 0;
+  min-width: 0;
 }
 
 .quality {
@@ -185,6 +187,7 @@ label {
 
   input {
     height: 100%;
+    width: 100%;
   }
 
   button,

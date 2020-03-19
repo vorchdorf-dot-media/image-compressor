@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h2>Options</h2>
     <component :is="activeComponent" class="form-container" @data="update" />
     <div class="button-container">
       <div class="button-group">
@@ -65,34 +64,25 @@ export default Vue.extend({
   }
 }
 
-h2 {
-  margin-bottom: 0.5rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  opacity: 0.5;
-}
-
 section {
   animation: appear 300ms ease-out;
   position: absolute;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   box-shadow: 0 -5px 10px -3px var(--color-bg-dark);
   border-radius: 8px;
-  border-top: 2px solid var(--color-bg);
+  border-top: 1px solid var(--color-light);
   background: var(--color-bg-dark);
   color: var(--color-default);
   fill: var(--color-default);
-  padding: 1rem 1rem;
+  padding-bottom: 1rem;
   min-height: 0;
   min-width: 0;
-  max-height: 100%;
-  max-width: 100%;
   top: 10%;
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 
 button {
@@ -118,15 +108,12 @@ button {
 }
 
 .form-container {
+  box-shadow: 0 5px 10px -3px var(--color-light),
+    inset 0 0px 10px -3px var(--color-bg-dark);
   padding: 1rem;
   background: var(--color-light);
   color: var(--color-bg-dark);
   fill: var(--color-bg-dark);
-}
-
-.button-container,
-.form-container {
-  margin: 0 -1rem;
 }
 
 .button-group {
