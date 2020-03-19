@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit="onSubmit">
     <div class="input-container">
       <span class="quality" :class="{ bad, good }">{{ quality }}%</span>
       <input
@@ -15,7 +15,7 @@
           v-for="size in sizes"
           :key="size"
           :class="{ active: resize === size }"
-          @change="(evt) => setSize(evt, size)"
+          @click="(evt) => setSize(evt, size)"
         >
           {{ size }}
         </button>
@@ -24,7 +24,7 @@
             id="resize-input"
             :value="resize || original"
             type="number"
-            @blur="resize = parseInt($event.target.value, 10)"
+            @keyup="resize = parseInt($event.target.value, 10)"
           />
         </div>
       </div>
@@ -97,6 +97,9 @@ export default Vue.extend({
     }
   }),
   methods: {
+    onSubmit(e: Event) {
+      e.preventDefault();
+    },
     setFormat(e: MouseEvent, format: string): void {
       e.preventDefault();
       this.format = format;
