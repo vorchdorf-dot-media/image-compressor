@@ -6,7 +6,7 @@ import { ImageModel } from '~/store/queue';
 import { StateMachine } from '~/store/statemachine';
 
 export interface ImageEncoderStore {
-  mozjpeg: { options: MozJPEGOptions };
+  jpeg: { options: MozJPEGOptions };
   originals: { images: Map<string, ImageStore> };
   queue: { images: { [key: string]: ImageModel } };
   statemachine: { state: StateMachine };

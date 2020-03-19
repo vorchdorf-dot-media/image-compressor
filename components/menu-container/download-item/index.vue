@@ -1,7 +1,7 @@
 <template>
   <button :disabled="!blob" @click="download">
     <DownloadIcon />
-    <span>Save</span>
+    <span>Download</span>
   </button>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2>Options</h2>
-    <component :is="activeComponent" @data="update" />
+    <component :is="activeComponent" class="form-container" @data="update" />
     <div class="button-container">
       <div class="button-group">
         <button
@@ -66,6 +66,7 @@ export default Vue.extend({
 }
 
 h2 {
+  margin-bottom: 0.5rem;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.25em;
@@ -79,7 +80,7 @@ section {
   grid-template-rows: auto 1fr auto;
   box-shadow: 0 -5px 10px -3px var(--color-bg-dark);
   border-radius: 8px;
-  border-top: 1px solid var(--color-bg);
+  border-top: 2px solid var(--color-bg);
   background: var(--color-bg-dark);
   color: var(--color-default);
   fill: var(--color-default);
@@ -116,29 +117,66 @@ button {
   }
 }
 
+.form-container {
+  padding: 1rem;
+  background: var(--color-light);
+  color: var(--color-bg-dark);
+  fill: var(--color-bg-dark);
+}
+
+.button-container,
+.form-container {
+  margin: 0 -1rem;
+}
+
 .button-group {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: inset 0 5px 10px -3px var(--color-bg-dark);
+  margin-bottom: 1.5rem;
   min-width: 0;
+  min-height: 44px;
   width: 100%;
 
   button {
     transition: background-color 200ms ease-in, color 200ms ease-in;
-    display: flex;
+    display: inline-flex;
+    position: relative;
     justify-content: center;
     box-shadow: none;
     border-radius: 0;
-    border: 2px solid var(--color-light);
+    border: 1px solid var(--color-light);
+    border-top: none;
     background: transparent;
     margin: 0;
-    width: 100%;
+    min-width: 33.333%;
+
+    &:first-child {
+      border-bottom-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 4px;
+    }
   }
 
   .active {
+    box-shadow: inset 0 3px 10px -5px var(--color-bg);
     background: var(--color-light);
     color: var(--color-bg-dark);
     fill: var(--color-bg-dark);
+
+    &::after {
+      animation: none;
+      content: '';
+      position: absolute;
+      border-top: 1px dashed var(--color-bg);
+      height: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      opacity: 0.5;
+    }
   }
 }
 </style>
