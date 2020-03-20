@@ -13,8 +13,7 @@
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"]
-    },
-    "types": ["@types/emscripten", "@types/node", "@nuxt/types"]
+    }
   },
   "exclude": ["node_modules"]
 }

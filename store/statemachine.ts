@@ -1,3 +1,5 @@
+import { MIMETYPE } from '~/assets/helpers/formats';
+
 export enum STATE {
   CLEAR,
   IMAGE,
@@ -6,13 +8,13 @@ export enum STATE {
 
 export interface StateMachine {
   state: STATE;
-  format?: 'image/jpeg' | 'image/webp';
+  mimetype?: MIMETYPE;
   id?: string;
   url?: string;
 }
 
 export const state = (): { state: StateMachine } => ({
-  state: { state: STATE.CLEAR, format: 'image/webp' }
+  state: { state: STATE.CLEAR, mimetype: 'image/webp' }
 });
 
 export const mutations = {

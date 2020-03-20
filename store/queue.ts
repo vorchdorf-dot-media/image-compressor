@@ -57,11 +57,11 @@ export const getters = {
 export const actions = {
   async encode(context: any) {
     const timestamp = Date.now();
-    const { format, id } = context.rootGetters['statemachine/state'] || {};
+    const { mimetype, id } = context.rootGetters['statemachine/state'] || {};
     const { buffer, height, width } =
       context.rootGetters['originals/image'](id) || {};
     const { width: outWidth = width } = context.getters.image(id) || {};
-    const codec = format === 'image/webp' ? 'webp' : 'mozjpeg';
+    const codec = mimetype === 'image/webp' ? 'webp' : 'mozjpeg';
     const scale = outWidth / width;
     const encoder = context.rootGetters[`${codec}/options`];
 
@@ -70,7 +70,7 @@ export const actions = {
       encoder,
       options: {
         height,
-        mimetype: format,
+        mimetype,
         scale,
         width
       }

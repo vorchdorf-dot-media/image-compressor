@@ -1,3 +1,5 @@
+import { MIMETYPE } from '~/assets/helpers/formats';
+
 export interface OriginalsStore {
   images: Map<string, ImageStore>;
   update?: Date;
@@ -7,7 +9,7 @@ export interface ImageStore {
   buffer: Uint8Array;
   height: number;
   id: string;
-  mimetype?: string;
+  mimetype?: MIMETYPE;
   size?: number;
   width: number;
 }

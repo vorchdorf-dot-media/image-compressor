@@ -15,7 +15,9 @@
             id="quality-input"
             type="number"
             :value="quality || defaultQuality"
-            @keyup="(evt) => setQuality(evt, parseInt(evt.target.value, 10))"
+            @keyup="
+              (evt) => debounceQuality(evt, parseInt(evt.target.value, 10))
+            "
           />
         </div>
         <button
@@ -40,7 +42,7 @@
             id="resize-input"
             :value="resize || original"
             type="number"
-            @keyup="(evt) => setSize(evt, parseInt($event.target.value, 10))"
+            @keyup="(evt) => debounceSize(evt, parseInt(evt.target.value, 10))"
           />
         </div>
       </div>
@@ -62,6 +64,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import debounce from 'lodash/debounce';
 import MinusIcon from '~/components/icon/minus.vue';
 import PlusIcon from '~/components/icon/plus.vue';
 import { FORMATS as formats } from '~/assets/helpers/formats';
@@ -73,6 +76,8 @@ export default Vue.extend({
     PlusIcon
   },
   data(): {
+    debounceQuality?: (e: KeyboardEvent, quality: number) => void;
+    debounceSize?: (e: KeyboardEvent, size: number) => void;
     formats: string[];
     format?: string;
     quality: number;
@@ -87,11 +92,11 @@ export default Vue.extend({
   },
   computed: mapState({
     defaultFormat(): string {
-      const { format } = this.$store.getters['statemachine/state'];
-      this.format = format?.split('/').pop();
+      const { mimetype } = this.$store.getters['statemachine/state'];
+      this.format = mimetype?.split('/').pop();
       return this.format;
     },
-    defaultQuality(): void {
+    defaultQuality(): number {
       const format: string = this.format || this.defaultFormat || 'webp';
       const { quality } = this.$store.getters[`${format}/options`];
       this.quality = quality;
@@ -111,6 +116,10 @@ export default Vue.extend({
       return SIZES.filter((size: number) => size < currentSize);
     }
   }),
+  created() {
+    this.debounceQuality = debounce(this.setQuality, 500);
+    this.debounceSize = debounce(this.setSize, 500);
+  },
   methods: {
     onSubmit(e: Event) {
       e.preventDefault();
@@ -118,14 +127,25 @@ export default Vue.extend({
     setFormat(e: MouseEvent, format: string): void {
       e.preventDefault();
       this.format = format;
+      this.$emit('data', { mimetype: `image/${format}` });
     },
     setQuality(e: KeyboardEvent, quality: number): void {
       e.preventDefault();
-      this.quality = quality;
+      const current = this.quality;
+      this.quality = !isNaN(quality) ? quality : this.defaultQuality;
+      this.quality =
+        this.quality < 0 || this.quality > 100 ? current : this.quality;
+      this.$emit('data', {
+        quality: this.quality
+      });
     },
-    setSize(e: MouseEvent, size: number): void {
+    setSize(e: MouseEvent | KeyboardEvent, size: number): void {
       e.preventDefault();
-      this.resize = size;
+      const current = this.resize;
+      this.resize = !isNaN(size) ? size : this.original;
+      this.resize =
+        this.resize < 0 || this.resize > this.original ? current : this.resize;
+      this.$emit('data', { size: this.resize });
     }
   }
 });

@@ -1,7 +1,9 @@
+import { MIMETYPE } from '~/assets/helpers/formats';
+
 export interface WorkerPayload {
   buffer: Uint8Array;
   options?: {
-    mimetype?: 'image/jpeg' | 'image/webp';
+    mimetype?: MIMETYPE;
     height?: number;
     scale?: number;
     width?: number;

@@ -21,6 +21,7 @@ import { mapState } from 'vuex';
 import { ImageEncoderStore } from '~/assets/helpers/store';
 
 const SIZES = ['B', 'KB', 'MB'];
+const KB = 1024;
 
 export default Vue.extend({
   computed: mapState({
@@ -51,7 +52,7 @@ export default Vue.extend({
     format: (size: number): string => {
       let i = SIZES.length - 1;
       for (i; i >= 0; i--) {
-        const barrier = 1000 ** i;
+        const barrier = KB ** i;
         const factor = size / barrier;
         if (factor > 1.0) {
           const formatted = Math.round(factor * 100.0) / 100;

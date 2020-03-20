@@ -1,6 +1,8 @@
 <template>
-  <section>
-    <component :is="activeComponent" class="form-container" @data="update" />
+  <div class="options-container">
+    <keep-alive>
+      <component :is="activeComponent" class="form-container" @data="update" />
+    </keep-alive>
     <div class="button-container">
       <div class="button-group">
         <button
@@ -21,15 +23,23 @@
         <span>Save</span>
       </button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { MIMETYPE } from '~/assets/helpers/formats';
 import CheckmarkIcon from '~/components/icon/checkmark.vue';
 import EncoderForm from '~/components/preview-container/options/encoder/index.vue';
 import MetaForm from '~/components/preview-container/options/meta/index.vue';
 import { STATE } from '~/store/statemachine';
+export interface FormEvent {
+  description?: string;
+  mimetype?: MIMETYPE;
+  quality?: number;
+  size?: number;
+  title?: string;
+}
 export default Vue.extend({
   components: {
     CheckmarkIcon,
@@ -40,15 +50,17 @@ export default Vue.extend({
     return {
       activeComponent: EncoderForm,
       EncoderForm,
-      MetaForm
+      MetaForm,
+      options: {}
     };
   },
   methods: {
     save() {
       this.$store.commit('statemachine/set', { state: STATE.IMAGE });
     },
-    update(e: any) {
-      console.log(e);
+    update(e: FormEvent) {
+      this.options = { ...this.options, ...e };
+      console.log(this.options);
     }
   }
 });
@@ -64,7 +76,7 @@ export default Vue.extend({
   }
 }
 
-section {
+.options-container {
   animation: appear 300ms ease-out;
   position: absolute;
   display: grid;
