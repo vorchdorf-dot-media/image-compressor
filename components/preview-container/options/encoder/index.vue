@@ -1,5 +1,5 @@
 <template>
-  <form @submit="onSubmit">
+  <form @submit="noop">
     <h2>Encode Options</h2>
     <div class="input-container">
       <label for="quality-input">Quality</label>
@@ -121,16 +121,14 @@ export default Vue.extend({
     this.debounceSize = debounce(this.setSize, 500);
   },
   methods: {
-    onSubmit(e: Event) {
-      e.preventDefault();
-    },
+    noop: (e: Event) => e.preventDefault(),
     setFormat(e: MouseEvent, format: string): void {
-      e.preventDefault();
+      this.noop(e);
       this.format = format;
       this.$emit('data', { mimetype: `image/${format}` });
     },
     setQuality(e: KeyboardEvent, quality: number): void {
-      e.preventDefault();
+      this.noop(e);
       const current = this.quality;
       this.quality = !isNaN(quality) ? quality : this.defaultQuality;
       this.quality =
@@ -140,7 +138,7 @@ export default Vue.extend({
       });
     },
     setSize(e: MouseEvent | KeyboardEvent, size: number): void {
-      e.preventDefault();
+      this.noop(e);
       const current = this.resize;
       this.resize = !isNaN(size) ? size : this.original;
       this.resize =

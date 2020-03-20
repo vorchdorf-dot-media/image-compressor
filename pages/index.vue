@@ -105,7 +105,6 @@ input[type='number'] {
   border: 1px solid var(--color-border, var(--color-bg-dark));
   padding: 0.5em 2em 0.5em 1em;
   font-size: 1em;
-  text-transform: uppercase;
   letter-spacing: 0.25em;
 }
 
