@@ -1,19 +1,26 @@
 <template>
   <form @submit="noop">
+    <h2>Meta Options</h2>
     <div class="input-container">
       <label for="title-input">Title</label>
-      <input
-        id="title-input"
-        type="text"
-        @keyup="(evt) => debounceTitle(evt, evt.target.value)"
-      />
+      <div class="input-wrapper">
+        <input
+          id="title-input"
+          type="text"
+          :value="title || defaultTitle"
+          @keyup="(evt) => debounceTitle(evt, evt.target.value)"
+        />
+      </div>
       <label for="description-input">Description</label>
-      <textarea
-        id="description-input"
-        cols="30"
-        rows="10"
-        @keyup="(evt) => debounceDescription(evt, evt.target.value)"
-      />
+      <div class="input-wrapper">
+        <textarea
+          id="description-input"
+          rows="4"
+          placeholder="Enter description for image"
+          :value="description || defaultDescription"
+          @keyup="(evt) => debounceDescription(evt, evt.target.value)"
+        />
+      </div>
     </div>
   </form>
 </template>
@@ -33,9 +40,24 @@ export default Vue.extend({
       title: undefined
     };
   },
+  computed: {
+    id(): string {
+      const { id = '' } = this.$store.getters['statemachine/state'];
+      return id;
+    },
+    defaultDescription(): string {
+      const { description = '' } =
+        this.$store.getters['queue/image'](this.id) || {};
+      return description;
+    },
+    defaultTitle(): string {
+      const { title = '' } = this.$store.getters['queue/image'](this.id) || {};
+      return title;
+    }
+  },
   created() {
-    this.debounceDescription = debounce(this.setDescription, 500);
-    this.debounceTitle = debounce(this.setTitle, 500);
+    this.debounceDescription = debounce(this.setDescription, 1000);
+    this.debounceTitle = debounce(this.setTitle, 1000);
   },
   methods: {
     noop: (e: Event) => e.preventDefault(),
@@ -45,9 +67,8 @@ export default Vue.extend({
     },
     setDescription(e: KeyboardEvent, description: string): void {
       this.noop(e);
-      const current = this.description;
       const sanitized = this.sanitizer(description);
-      this.description = sanitized || current;
+      this.description = sanitized || '';
       this.$emit('data', { description: this.description });
     },
     setTitle(e: KeyboardEvent, title: string): void {

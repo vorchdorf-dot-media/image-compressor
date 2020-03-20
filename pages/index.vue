@@ -97,15 +97,27 @@ button {
   }
 }
 
-input[type='text'],
-input[type='number'] {
+input,
+textarea {
   display: block;
   position: relative;
   background: rgba(255, 255, 255, 0.25);
   border: 1px solid var(--color-border, var(--color-bg-dark));
   padding: 0.5em 2em 0.5em 1em;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  font-family: inherit;
   font-size: 1em;
   letter-spacing: 0.25em;
+  resize: none;
+}
+
+textarea {
+  letter-spacing: 0;
 }
 
 svg {

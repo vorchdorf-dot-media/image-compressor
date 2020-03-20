@@ -117,8 +117,8 @@ export default Vue.extend({
     }
   }),
   created() {
-    this.debounceQuality = debounce(this.setQuality, 500);
-    this.debounceSize = debounce(this.setSize, 500);
+    this.debounceQuality = debounce(this.setQuality, 1000);
+    this.debounceSize = debounce(this.setSize, 1000);
   },
   methods: {
     noop: (e: Event) => e.preventDefault(),
@@ -150,106 +150,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-h2 {
-  margin: 0;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  opacity: 0.5;
-}
-
-span,
-label {
-  font-size: 0.875em;
-  text-align: right;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-}
-
-.input-container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-auto-rows: minmax(44px, auto);
-  column-gap: 1rem;
-  row-gap: 1rem;
-  align-items: center;
-  min-height: 0;
-  min-width: 0;
-}
-
-.button-container {
-  display: inherit;
-  grid-column: 2 / span 2;
-  grid-template-columns: repeat(3, auto);
-  align-items: stretch;
-  min-height: 0;
-  height: 100%;
-
-  button {
-    transition: background-color 200ms ease-in, color 200ms ease-in;
-    border: 1px solid var(--color-bg-dark);
-    padding: 0.25em 0.5em;
-    background: var(--color-button-bg, transparent);
-    color: var(--color-button-text, inherit);
-
-    &:disabled {
-      opacity: 0.333;
-    }
-
-    &.active {
-      --color-button-bg: var(--color-bg);
-      --color-button-text: var(--color-default);
-    }
-
-    + * {
-      border-left: 0;
-    }
-  }
-
-  input {
-    height: 100%;
-    width: 100%;
-  }
-
-  button,
-  .input-wrapper {
-    &:first-child {
-      border-bottom-left-radius: 4px;
-      border-top-left-radius: 4px;
-    }
-
-    &:last-child {
-      border-bottom-right-radius: 4px;
-      border-top-right-radius: 4px;
-    }
-  }
-}
-
-.input-wrapper {
-  position: relative;
-  border: 1px solid var(--color-bg-dark);
-
-  input {
-    border: none;
-  }
-
-  &::after {
-    content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImZpbGw6IHZhcigtLWNvbG9yLWZpbGwpIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZD0iTTYyLjgsMTIuMWMtMy40LTMuNS02LjktNy4yLTEwLjMtMTAuNmMtMC44LTAuOC0xLjktMS4zLTIuOS0xLjNzLTEuOSwwLjItMi43LDFMNi42LDQxLjFjLTAuMSwwLjEtMC4yLDAuMi0wLjIsMC40bC02LDE4LjYKCWwtMC4xLDAuM2MtMC4zLDAuOC0wLjEsMS43LDAuNCwyLjRoMGwwLDBDMS41LDYzLjcsMi44LDY0LDQsNjMuNmwxOC41LTZjMC4xLDAsMC4zLTAuMSwwLjQtMC4ybDM5LjktMzkuOWMwLjgtMC44LDEuMS0xLjYsMS4xLTIuNwoJUzYzLjQsMTIuNiw2Mi44LDEyLjF6IE0xOS44LDUyLjdMNi44LDU3TDExLDQ0bDI4LjctMjguMWw4LjUsOC41TDE5LjgsNTIuN3ogTTUxLjksMjAuNmwtOC41LTguNWw1LjgtNS44YzIuOSwyLjksNS44LDUuOCw4LjUsOC44CglMNTEuOSwyMC42eiIvPgo8L3N2Zz4=');
-    position: absolute;
-    height: auto;
-    width: 1em;
-    top: 50%;
-    right: 0.25em;
-    transform: translateY(-50%);
-  }
-}
-
 .quality-buttons {
   grid-template-columns: 0.5fr 1fr 0.5fr;
 
