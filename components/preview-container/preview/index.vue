@@ -35,14 +35,11 @@ export default Vue.extend({
     }: ImageEncoderStore): string => id || '',
     src({ queue: { images } }: ImageEncoderStore) {
       const { buffer = new Uint8Array(), mimetype } = images[this.id] || {};
-      return buffer.length
+      return buffer && buffer.length
         ? URL.createObjectURL(new Blob([buffer], { type: mimetype }))
         : null;
     }
   }),
-  mounted() {
-    this.$store.dispatch('queue/encode');
-  },
   methods: {
     remove(): void {
       this.$store.commit('queue/delete', this.id);

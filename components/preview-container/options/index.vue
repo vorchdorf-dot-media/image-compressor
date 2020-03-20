@@ -26,11 +26,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 import { MIMETYPE } from '~/assets/helpers/formats';
+import { ImageEncoderStore } from '~/assets/helpers/store';
 import CheckmarkIcon from '~/components/icon/checkmark.vue';
 import EncoderForm from '~/components/preview-container/options/encoder/index.vue';
 import MetaForm from '~/components/preview-container/options/meta/index.vue';
-import { STATE } from '~/store/statemachine';
+import { ImageModel } from '~/store/queue';
+import { STATE, StateMachine } from '~/store/statemachine';
 export interface FormEvent {
   description?: string;
   mimetype?: MIMETYPE;
@@ -44,7 +47,12 @@ export default Vue.extend({
     EncoderForm,
     MetaForm
   },
-  data() {
+  data(): {
+    activeComponent: any;
+    EncoderForm: any;
+    MetaForm: any;
+    options: FormEvent;
+  } {
     return {
       activeComponent: EncoderForm,
       EncoderForm,
@@ -52,13 +60,68 @@ export default Vue.extend({
       options: {}
     };
   },
+  computed: mapState({
+    image({
+      queue: { images },
+      statemachine: { state }
+    }: ImageEncoderStore): ImageModel {
+      const { id = '' } = state;
+      return images[id];
+    }
+  }),
   methods: {
     save() {
-      this.$store.commit('statemachine/set', { state: STATE.IMAGE });
+      const { height, width } = this.image;
+      const {
+        description,
+        mimetype,
+        quality,
+        size = Math.max(height, width),
+        title = ''
+      } = this.options;
+      const {
+        id = '',
+        mimetype: defaultMime
+      }: StateMachine = this.$store.getters['statemachine/state'];
+      const mime: MIMETYPE | undefined = mimetype || defaultMime;
+      const format = mime?.split('/').pop();
+      if (quality) {
+        format && this.$store.commit(`${format}/set`, { quality });
+      }
+      this.$store.commit(
+        'statemachine/set',
+        Object.assign(
+          {},
+          { state: STATE.IMAGE },
+          mimetype && id.length ? { mimetype } : null
+        )
+      );
+      if (id.length) {
+        const scale = size / Math.max(height, width);
+        const outHeight = Math.round(height * scale);
+        const outWidth = Math.round(width * scale);
+        this.$store.commit(
+          'queue/set',
+          Object.assign(
+            {},
+            { id, description, height: outHeight, width: outWidth },
+            title.length ? { title } : null,
+            mimetype ? { mimetype } : null
+          )
+        );
+
+        if (
+          (mimetype && defaultMime !== mimetype) ||
+          outHeight !== height ||
+          outWidth !== width
+        ) {
+          this.$store.commit('queue/set', { id, buffer: null });
+          this.$store.dispatch('queue/encode');
+        }
+      }
     },
     update(e: FormEvent) {
       this.options = { ...this.options, ...e };
-      console.log(this.options);
     }
   }
 });
@@ -208,7 +271,7 @@ label {
 
 .input-container {
   display: grid;
-  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.333fr) minmax(0, 1fr);
   grid-auto-rows: minmax(44px, auto);
   column-gap: 1rem;
   row-gap: 1rem;

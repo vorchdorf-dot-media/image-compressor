@@ -1,7 +1,7 @@
+import { Exif } from '@saschazar/wasm-exif';
+import { FORMAT } from '~/assets/helpers/formats';
 import { WorkerPayload } from '~/assets/worker/definitions';
 import { EncoderPayload } from '~/assets/worker/encode.worker';
-
-import { Exif } from '@saschazar/wasm-exif';
 import { ImageStore } from '~/store/originals';
 
 export enum UPLOAD {
@@ -61,7 +61,7 @@ export const actions = {
     const { buffer, height, width } =
       context.rootGetters['originals/image'](id) || {};
     const { width: outWidth = width } = context.getters.image(id) || {};
-    const codec = mimetype === 'image/webp' ? 'webp' : 'mozjpeg';
+    const codec: FORMAT = mimetype === 'image/webp' ? 'webp' : 'jpeg';
     const scale = outWidth / width;
     const encoder = context.rootGetters[`${codec}/options`];
 

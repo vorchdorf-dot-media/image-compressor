@@ -54,6 +54,7 @@ export default Vue.extend({
           ...data.options
         });
         this.$store.commit('statemachine/set', { state: STATE.IMAGE, id });
+        this.$store.dispatch('queue/encode');
         decodeWorker.terminate();
 
         if (data?.options?.mimetype === 'image/jpeg') {
