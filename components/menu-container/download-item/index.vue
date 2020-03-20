@@ -26,8 +26,8 @@ export default Vue.extend({
       const { title, mimetype }: { title: string; mimetype: string } =
         this.$store.getters['queue/image'](this.id) || {};
       return title.replace(
-        /\.[a-z0-9]+$/i,
-        `.min.${mimetype === 'image/webp' ? 'webp' : 'jpg'}`
+        /^([^.]+)\.?(?:[a-z0-9]*)?$/i,
+        `$1.min.${mimetype === 'image/webp' ? 'webp' : 'jpg'}`
       );
     }
   }),
