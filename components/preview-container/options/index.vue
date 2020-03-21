@@ -85,6 +85,9 @@ export default Vue.extend({
       }: StateMachine = this.$store.getters['statemachine/state'];
       const mime: MIMETYPE | undefined = mimetype || defaultMime;
       const format = mime?.split('/').pop();
+      const { quality: defaultQuality } = this.$store.getters[
+        `${format}/options`
+      ];
       if (quality) {
         format && this.$store.commit(`${format}/set`, { quality });
       }
@@ -111,6 +114,7 @@ export default Vue.extend({
         );
 
         if (
+          (quality && defaultQuality !== quality) ||
           (mimetype && defaultMime !== mimetype) ||
           outHeight !== height ||
           outWidth !== width
