@@ -2,6 +2,7 @@
   <!-- Originally downloaded from https://lineicons.com -->
   <!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
   <svg
+    aria-hidden="true"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"

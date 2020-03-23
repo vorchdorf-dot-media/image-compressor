@@ -4,7 +4,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Image Compressor',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -12,6 +12,10 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      {
+        name: 'twitter:image',
+        content: 'https://compressor.sascha.app/screenshot.png'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -82,6 +86,26 @@ export default {
           fs: 'empty'
         };
       }
+    }
+  },
+  /*
+   ** PWA configuration
+   */
+  pwa: {
+    manifest: {
+      name: 'Image Compressor',
+      short_name: 'Compressor',
+      display: 'standalone',
+      background_color: '#163663',
+      theme_color: '#03161e'
+    },
+    meta: {
+      name: 'Image Compressor',
+      ogHost: 'https://compressor.sascha.app',
+      ogImage: '/screenshot.png',
+      twitterCard: 'summary_large_image',
+      twitterSite: '@saschazar',
+      twitterCreator: '@saschazar'
     }
   }
 };

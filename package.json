@@ -1,9 +1,10 @@
 {
-  "name": "@saschazar/image-encoder",
+  "name": "@saschazar/image-compressor",
   "version": "1.0.0",
   "description": "A WebAssembly-powered website to decode/encode images",
   "author": "Sascha Zarhuber",
   "private": true,
+  "homepage": "https://compressor.sascha.app",
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
