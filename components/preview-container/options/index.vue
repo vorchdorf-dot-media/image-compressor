@@ -137,10 +137,10 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @keyframes appear {
   from {
-    top: 200%;
+    bottom: -100%;
   }
   to {
-    top: 10%;
+    bottom: 0;
   }
 }
 
@@ -148,6 +148,7 @@ export default Vue.extend({
   animation: appear 300ms ease-out;
   position: absolute;
   display: grid;
+  grid-area: footer;
   grid-template-rows: 1fr auto;
   box-shadow: 0 -5px 10px -3px var(--color-bg-dark);
   border-radius: 8px;
@@ -159,11 +160,19 @@ export default Vue.extend({
   min-height: 0;
   min-width: 0;
   max-height: 90%;
-  top: 10%;
   right: 0;
   bottom: 0;
   left: 0;
   overflow: hidden;
+
+  @media screen and (min-width: 476px), (orientation: landscape) {
+    width: 476px;
+    top: auto;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: auto;
+  }
 }
 
 button {

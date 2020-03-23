@@ -47,11 +47,18 @@ export default Vue.extend({
 <style scoped>
 .container {
   display: grid;
+  grid-area: header;
   grid-template-columns: 1fr auto;
   align-items: stretch;
   box-shadow: inset 0 -5px 10px -5px var(--color-bg-dark);
   background: var(--color-bg-dark);
   height: 100%;
   width: 100%;
+}
+
+@media screen and (min-width: 1024px), (orientation: landscape) {
+  .container {
+    grid-template-columns: 1fr minmax(0, 96px);
+  }
 }
 </style>

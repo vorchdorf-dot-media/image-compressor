@@ -73,6 +73,14 @@ main {
   max-height: 100vh;
   max-width: 100vw;
   overflow: hidden;
+
+  @media screen and (min-width: 1024px), (orientation: landscape) {
+    grid-template-areas:
+      'header header'
+      'main footer';
+    grid-template-columns: minmax(0, 1fr) minmax(0, 96px);
+    grid-template-rows: minmax(auto, 64px) auto;
+  }
 }
 
 button {

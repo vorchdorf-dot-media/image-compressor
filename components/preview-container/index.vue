@@ -31,6 +31,7 @@ export default Vue.extend({
 <style scoped>
 .container {
   position: relative;
+  grid-area: main;
   height: 100%;
   width: 100%;
   background-repeat: repeat;
