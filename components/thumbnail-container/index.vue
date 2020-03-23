@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ThumbnailList :images="images" />
-    <UploadItem :disabled="!ready || !ready.length" />
+    <UploadItem v-if="upload" :disabled="!ready || !ready.length" />
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default Vue.extend({
   components: {
     ThumbnailList,
     UploadItem
+  },
+  data() {
+    return {
+      upload: process.env.UPLOAD === 'true'
+    };
   },
   computed: mapState('queue', {
     images: ({ images }: any) => {

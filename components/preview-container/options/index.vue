@@ -5,6 +5,7 @@
     </keep-alive>
     <div class="button-group">
       <button
+        v-if="upload"
         :class="{ active: activeComponent === MetaForm }"
         @click="activeComponent = MetaForm"
       >
@@ -52,12 +53,14 @@ export default Vue.extend({
     EncoderForm: any;
     MetaForm: any;
     options: FormEvent;
+    upload: Boolean;
   } {
     return {
       activeComponent: EncoderForm,
       EncoderForm,
       MetaForm,
-      options: {}
+      options: {},
+      upload: process.env.UPLOAD === 'true'
     };
   },
   computed: mapState({
@@ -155,6 +158,7 @@ export default Vue.extend({
   padding-bottom: 1rem;
   min-height: 0;
   min-width: 0;
+  max-height: 90%;
   top: 10%;
   right: 0;
   bottom: 0;
@@ -255,7 +259,7 @@ form {
 }
 
 h2 {
-  margin: 0;
+  margin: 0 0 2rem;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.25em;
