@@ -5,6 +5,10 @@
   <strong>A WebAssembly-powered website to decode/encode images. 🖼</strong>
   <br />
   <br />
+  <img alt="Build status on travis.com" src="https://img.shields.io/travis/com/vorchdorf-dot-media/image-compressor"> <img alt="License" src="https://img.shields.io/github/license/vorchdorf-dot-media/image-compressor"> 
+  <br />
+  <br />
+  <br />
 </div>
 
 ## About
@@ -12,6 +16,10 @@
 Image Compressor is a pure frontend-only [Progressive Web App](https://web.dev/progressive-web-apps/), realized using [Nuxt.js](https://nuxtjs.org/), [WebAssembly](https://webassembly.org/) and Web Workers.
 
 It's also working offline and offers the same look and feel as a native app, when installed locally using Chrome, Android or iOS.
+
+### Privacy
+
+Images uploaded to the website will never leave your browser (unless downloaded), as there is no backend involved. Also, no tracking cookies are set. Your data remains your data and nothing else. Promise 🙏.
 
 ### Technology
 
@@ -23,7 +31,7 @@ Currently the following image codecs are supported:
 ### UI Preview
 
 <div align="center">
-  <img src="static/screenshot.png" alt="A screenshot showing the UI of Image Compressor" width="512px" />
+  <img src="static/screenshot.png" alt="A screenshot showing the UI of Image Compressor" width="768px" />
 </div>
 
 ## Build Setup
