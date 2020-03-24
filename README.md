@@ -1,7 +1,7 @@
 <div align="center">
   <img src="static/icon.png" alt="The icon of Image Compressor" width="192px" />
   <br />
-  <h1>Image Compressor</h1>
+  <h1><a href="https://compressor.sascha.app/" rel="noopener noreferrer">Image Compressor</a></h1>
   <strong>A WebAssembly-powered website to decode/encode images. 🖼</strong>
   <br />
   <br />
