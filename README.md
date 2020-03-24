@@ -5,7 +5,7 @@
   <strong>A WebAssembly-powered website to decode/encode images. 🖼</strong>
   <br />
   <br />
-  <img alt="Build status on travis.com" src="https://img.shields.io/travis/com/vorchdorf-dot-media/image-compressor"> <img alt="License" src="https://img.shields.io/github/license/vorchdorf-dot-media/image-compressor"> 
+  <img alt="Build status on travis.com" src="https://img.shields.io/travis/com/vorchdorf-dot-media/image-encoder"> <img alt="License" src="https://img.shields.io/github/license/vorchdorf-dot-media/image-compressor"> 
   <br />
   <br />
   <br />

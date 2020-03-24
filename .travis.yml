@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - lts/erbium
+
+jobs:
+  include:
+    - stage: test
+      name: 'Unit Tests'
+      script: yarn build
+    - stage: deploy
+      name: 'Netlify (Open Source)'
+      script: yarn generate
+      if: branch = master
+      deploy:
+        - provider: netlify
+          edge: true
+          site: $NETLIFY_ID_OPEN_SOURCE
+          dir: dist
+          prod: true
