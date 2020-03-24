@@ -6,11 +6,11 @@
     />
     <li
       :style="{ top: rel(resultSize) + '%' }"
-      v-html="format(resultSize)"
       :class="{
         error: resultSize >= originalSize,
         success: resultSize < originalSize
       }"
+      v-html="format(resultSize)"
     ></li>
   </ul>
 </template>
@@ -71,9 +71,9 @@ ul {
   border-left: 2px dashed var(--color-bg-dark);
   margin: 1rem 0 0 1rem;
   padding: 0;
-  top: 0;
+  top: 1.5em;
   left: 0;
-  bottom: 0;
+  bottom: 1.5em;
   right: auto;
   list-style-type: none;
 }

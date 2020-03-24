@@ -74,7 +74,8 @@ main {
   max-width: 100vw;
   overflow: hidden;
 
-  @media screen and (min-width: 1024px), (orientation: landscape) {
+  @media screen and (min-width: 1024px),
+    (min-width: 568px) and (orientation: landscape) {
     grid-template-areas:
       'header header'
       'main footer';

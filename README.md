@@ -19,7 +19,7 @@ It's also working offline and offers the same look and feel as a native app, whe
 
 ### Privacy
 
-Images uploaded to the website will never leave your browser (unless downloaded), as there is no backend involved. Also, no tracking cookies are set. Your data remains your data and nothing else. Promise 🙏.
+Images uploaded to the website will never leave your browser (unless downloaded), as there is no backend involved. Also, no tracking cookies are set. Your data remains your data and nothing else. Promise. 🙏
 
 ### Technology
 

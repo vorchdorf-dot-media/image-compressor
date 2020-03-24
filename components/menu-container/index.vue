@@ -63,7 +63,8 @@ export default Vue.extend({
   }
 }
 
-@media screen and (min-width: 1024px), (orientation: landscape) {
+@media screen and (min-width: 1024px),
+  (min-width: 568px) and (orientation: landscape) {
   .container {
     box-shadow: inset 5px 0 10px -5px var(--color-bg-dark);
     grid-template-columns: 1fr;

@@ -56,7 +56,8 @@ export default Vue.extend({
   width: 100%;
 }
 
-@media screen and (min-width: 1024px), (orientation: landscape) {
+@media screen and (min-width: 1024px),
+  (min-width: 568px) and (orientation: landscape) {
   .container {
     grid-template-columns: 1fr minmax(0, 96px);
   }

@@ -5,6 +5,11 @@
   "author": "Sascha Zarhuber",
   "private": true,
   "homepage": "https://compressor.sascha.app",
+  "readme": "https://github.com/vorchdorf-dot-media/image-compressor#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vorchdorf-dot-media/image-compressor"
+  },
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",

@@ -3,9 +3,8 @@
     <keep-alive>
       <component :is="activeComponent" class="form-container" @data="update" />
     </keep-alive>
-    <div class="button-group">
+    <div v-if="upload" class="button-group">
       <button
-        v-if="upload"
         :class="{ active: activeComponent === MetaForm }"
         @click="activeComponent = MetaForm"
       >
@@ -186,7 +185,7 @@ button {
   color: inherit;
   fill: inherit;
   padding: 0.5rem;
-  margin: 0.5rem auto 16px;
+  margin: 1.5rem auto 16px;
 
   &:hover {
     border-color: var(--color-default);
@@ -210,7 +209,6 @@ button {
   display: flex;
   justify-content: flex-end;
   box-shadow: inset 0 5px 10px -3px var(--color-bg-dark);
-  margin-bottom: 1.5rem;
   min-width: 0;
   min-height: 44px;
   width: 100%;
