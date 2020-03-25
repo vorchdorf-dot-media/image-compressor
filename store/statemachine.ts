@@ -1,3 +1,5 @@
+import Bowser from 'bowser';
+
 import { MIMETYPE } from '~/assets/helpers/formats';
 
 export enum STATE {
@@ -13,8 +15,21 @@ export interface StateMachine {
   url?: string;
 }
 
+const supportsWebP = () => {
+  if (window?.navigator?.userAgent) {
+    const {
+      browser: { name: browser },
+      os: { name: os }
+    } = Bowser.parse(window?.navigator?.userAgent);
+    return !(browser === 'Safari' || os === 'iOS');
+  }
+};
+
 export const state = (): { state: StateMachine } => ({
-  state: { state: STATE.CLEAR, mimetype: 'image/webp' }
+  state: {
+    state: STATE.CLEAR,
+    mimetype: supportsWebP() ? 'image/webp' : 'image/jpeg'
+  }
 });
 
 export const mutations = {

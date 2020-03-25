@@ -25,6 +25,7 @@
     "@saschazar/wasm-image-loader": "^2.0.0",
     "@saschazar/wasm-mozjpeg": "^1.0.2",
     "@saschazar/wasm-webp": "^1.1.2",
+    "bowser": "^2.9.0",
     "nanoid": "^2.1.11",
     "nuxt": "^2.0.0"
   },
