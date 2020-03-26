@@ -29,6 +29,12 @@ export default {
    */
   css: [],
   /*
+   ** Environment variables
+   */
+  env: {
+    UPLOAD: process.env.UPLOAD
+  },
+  /*
    ** Plugins to load before mounting the App
    */
   plugins: [
