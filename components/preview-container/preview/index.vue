@@ -2,6 +2,7 @@
   <div class="container">
     <img v-if="src" :src="src" />
     <div v-if="src" class="overlay">
+      <SizeRelation />
       <Size />
       <button @click="remove">
         <CloseIcon />
@@ -18,6 +19,7 @@ import { mapState } from 'vuex';
 import { ImageEncoderStore } from '~/assets/helpers/store';
 import CloseIcon from '~/components/icon/close.vue';
 import Size from '~/components/preview-container/preview/size/index.vue';
+import SizeRelation from '~/components/preview-container/preview/size-relation/index.vue';
 import SpinnerArrow from '~/components/icon/spinner-arrow.vue';
 import { STATE } from '~/store/statemachine';
 
@@ -25,6 +27,7 @@ export default Vue.extend({
   components: {
     CloseIcon,
     Size,
+    SizeRelation,
     SpinnerArrow
   },
   computed: mapState({
