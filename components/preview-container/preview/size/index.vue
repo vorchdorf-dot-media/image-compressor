@@ -105,10 +105,10 @@ li {
 }
 
 .error {
-  background: var(--color-error);
+  background: var(--color-alert);
 
   &:after {
-    border-right-color: var(--color-error);
+    border-right-color: var(--color-alert);
   }
 }
 

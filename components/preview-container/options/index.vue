@@ -261,7 +261,9 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 0;
   min-width: 0;
+  max-height: 100%;
   max-width: 100%;
 }
 
@@ -293,6 +295,10 @@ label {
   align-items: center;
   min-height: 0;
   min-width: 0;
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .button-container {
