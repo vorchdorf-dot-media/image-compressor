@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/api/*"
+  to = "$API_URL/:splat"
+  status = 200
+  conditions = {Role = ["admin"]}
+  force = true
+  [redirects.headers]
+    X-From = "Image Compressor"
+    Authorization = "$AUTH_STRING"
+

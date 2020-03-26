@@ -16,4 +16,5 @@ jobs:
           edge: true
           site: $NETLIFY_ID_OPEN_SOURCE
           dir: dist
+          message: $TRAVIS_COMMIT
           prod: true

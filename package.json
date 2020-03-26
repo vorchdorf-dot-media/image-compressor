@@ -16,7 +16,7 @@
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "test:jest": "jest"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
