@@ -6,5 +6,5 @@
   force = true
   [redirects.headers]
     X-From = "Image Compressor"
-    Authorization = "$AUTH_STRING"
+    Authorization = "$API_AUTHORIZATION"
 
