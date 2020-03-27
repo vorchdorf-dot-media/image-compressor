@@ -1502,6 +1502,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/netlify-identity-widget@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@types/netlify-identity-widget/-/netlify-identity-widget-1.4.1.tgz#a963bd0360ac9dd8f4fd437be6764179d396e3a4"
+  integrity sha512-mTdN5Z71smk1+TeqgDF1RhkB+CDCS/CvCm4Iy7gGpheB4tsJVk2hnAhTi6w9v2H0jhixfAMgu1bUkqDA1yuq2Q==
+
 "@types/node-sass@^4.11.0":
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/@types/node-sass/-/node-sass-4.11.0.tgz#b0372075546e83f39df52bd37359eab00165a04d"
@@ -6914,6 +6919,11 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+netlify-identity-widget@^1.5.6:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/netlify-identity-widget/-/netlify-identity-widget-1.5.6.tgz#b841d4d469ad37bdc47e876d87cc2926aba2c302"
+  integrity sha512-DvWVUGuswOd+IwexKjzIpYcqYMrghmnkmflNqCQc4lG4KX55zE3fFjfXziCTr6LibP7hvZp37s067j5N3kRuyw==
 
 nice-try@^1.0.4:
   version "1.0.5"

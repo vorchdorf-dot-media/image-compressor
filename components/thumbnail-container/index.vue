@@ -1,24 +1,29 @@
 <template>
   <div class="container">
     <ThumbnailList :images="images" />
-    <UploadItem v-if="upload" :disabled="!ready || !ready.length" />
+    <UploadItem v-if="upload && token" :disabled="!ready || !ready.length" />
+    <LoginItem v-if="upload && !token" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import LoginItem from '~/components/thumbnail-container/login-item/index.vue';
 import ThumbnailList from '~/components/thumbnail-container/thumbnail-list/index.vue';
 import UploadItem from '~/components/thumbnail-container/upload-item/index.vue';
 import { UPLOAD } from '~/store/queue';
 export default Vue.extend({
   components: {
+    LoginItem,
     ThumbnailList,
     UploadItem
   },
   data() {
+    const token = this.$store.getters['user/token'];
     return {
-      upload: process.env.UPLOAD === 'true'
+      upload: process.env.UPLOAD === 'true',
+      token
     };
   },
   computed: mapState('queue', {

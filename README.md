@@ -5,7 +5,7 @@
   <strong>A WebAssembly-powered website to decode/encode images. 🖼</strong>
   <br />
   <br />
-  <img alt="Build status on travis.com" src="https://img.shields.io/travis/com/vorchdorf-dot-media/image-encoder"> <img alt="License" src="https://img.shields.io/github/license/vorchdorf-dot-media/image-compressor"> 
+  <a href="https://app.netlify.com/sites/upload-vorchdorf-media/deploys"><img alt="Netlify Deployment Status" src="https://api.netlify.com/api/v1/badges/d517a7e3-4a1b-4340-92d7-bf87c88ca7a8/deploy-status" /></a> <img alt="Build status on travis.com" src="https://img.shields.io/travis/com/vorchdorf-dot-media/image-encoder"> <img alt="License" src="https://img.shields.io/github/license/vorchdorf-dot-media/image-compressor"> 
   <br />
   <br />
   <br />
