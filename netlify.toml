@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/api/*"
-  to = "$API_URL/:splat"
+  from = "/api/graphql"
+  to = "$API_URL"
   status = 200
   conditions = {Role = ["admin"]}
   force = true
