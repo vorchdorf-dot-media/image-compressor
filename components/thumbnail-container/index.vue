@@ -20,10 +20,9 @@ export default Vue.extend({
     UploadItem
   },
   data() {
-    const token = this.$store.getters['user/token'];
     return {
       upload: process.env.UPLOAD === 'true',
-      token
+      token: false
     };
   },
   computed: mapState('queue', {

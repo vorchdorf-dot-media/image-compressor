@@ -10,6 +10,7 @@ import Vue from 'vue';
 import { mapState } from 'vuex';
 import identity from 'netlify-identity-widget';
 import CogIcon from '~/components/icon/cog.vue';
+import { UserStore } from '~/store/user';
 
 export default Vue.extend({
   components: {
@@ -26,14 +27,16 @@ export default Vue.extend({
       const {
         auth: { token: { expires_at: expiresAt = null } = {} } = {}
       } = this.user;
-      console.log(expiresAt);
-      return !expiresAt;
+      return !expiresAt || expiresAt < Date.now();
     }
   },
   created() {
     if (process.env.UPLOAD === 'true') {
+      const self: any = this;
       identity.init();
-      identity.on('login', console.log);
+      identity.on('login', (user: UserStore) =>
+        self.$store.commit('user/set', user)
+      );
       this.enabled = true;
     }
   },
