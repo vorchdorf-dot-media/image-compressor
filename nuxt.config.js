@@ -7,6 +7,11 @@ export default {
     title: 'Image Compressor',
     meta: [
       { charset: 'utf-8' },
+      {
+        name: 'robots',
+        content:
+          process.env.UPLOAD === 'true' ? 'noindex,nofollow' : 'index,follow'
+      },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
