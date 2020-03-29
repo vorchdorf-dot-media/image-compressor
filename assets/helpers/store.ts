@@ -4,11 +4,13 @@ import { EncodeOptions } from '@saschazar/wasm-webp/options';
 import { ImageStore } from '~/store/originals';
 import { ImageModel } from '~/store/queue';
 import { StateMachine } from '~/store/statemachine';
+import { UserStore } from '~/store/user';
 
 export interface ImageEncoderStore {
   jpeg: { options: MozJPEGOptions };
   originals: { images: Map<string, ImageStore> };
   queue: { images: { [key: string]: ImageModel } };
   statemachine: { state: StateMachine };
+  user: { auth: UserStore };
   webp: { options: EncodeOptions };
 }

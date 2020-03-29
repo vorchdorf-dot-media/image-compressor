@@ -9,6 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState } from 'vuex';
+import { ImageEncoderStore } from '~/assets/helpers/store';
 import LoginItem from '~/components/thumbnail-container/login-item/index.vue';
 import ThumbnailList from '~/components/thumbnail-container/thumbnail-list/index.vue';
 import UploadItem from '~/components/thumbnail-container/upload-item/index.vue';
@@ -21,12 +22,11 @@ export default Vue.extend({
   },
   data() {
     return {
-      upload: process.env.UPLOAD === 'true',
-      token: false
+      upload: process.env.UPLOAD === 'true'
     };
   },
-  computed: mapState('queue', {
-    images: ({ images }: any) => {
+  computed: mapState({
+    images: ({ queue: { images } }: ImageEncoderStore) => {
       return Object.keys(images)
         .filter((key: string) => images[key].buffer)
         .map((key: string) => {
@@ -43,6 +43,10 @@ export default Vue.extend({
       return this.images.filter(
         ({ upload }: { upload: UPLOAD }) => upload === UPLOAD.READY
       );
+    },
+    token({ user }: ImageEncoderStore): boolean {
+      const { auth: { token: { expires_at: expiresAt = 0 } = {} } = {} } = user;
+      return expiresAt > Date.now();
     }
   })
 });

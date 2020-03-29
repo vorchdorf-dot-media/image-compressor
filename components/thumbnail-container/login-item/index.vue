@@ -61,6 +61,10 @@ button {
   color: var(--color-default);
   fill: var(--color-default);
 
+  &:not([disabled]) {
+    box-shadow: inset 0 0 15px -3px rgba(0, 0, 0, 0.667), 0 0 15px 5px black;
+  }
+
   &[disabled] {
     background: transparent;
     color: var(--color-grey);

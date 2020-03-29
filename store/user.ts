@@ -2,8 +2,8 @@ import { Token, User } from 'netlify-identity-widget';
 
 export interface UserStore extends User {}
 
-export const state = (): { auth: UserStore | null } => ({
-  auth: null
+export const state = (): { auth: UserStore | undefined } => ({
+  auth: undefined
 });
 
 export const mutations = {

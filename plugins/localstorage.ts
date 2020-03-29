@@ -9,7 +9,7 @@ const plugin: Plugin = (ctx: Context) =>
   window.onNuxtReady(() =>
     createPersistedState({
       key: 'img',
-      paths: ['mozjpeg', 'statemachine.format', 'webp']
+      paths: ['jpeg', 'statemachine.state.mimetype', 'user', 'webp']
     })(ctx.store)
   );
 
