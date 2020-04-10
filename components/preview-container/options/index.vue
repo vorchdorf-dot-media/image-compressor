@@ -203,6 +203,7 @@ button {
   background: var(--color-light);
   color: var(--color-bg-dark);
   fill: var(--color-bg-dark);
+  overflow-y: auto;
 }
 
 .button-group {
