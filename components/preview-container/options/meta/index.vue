@@ -68,13 +68,16 @@ export default Vue.extend({
         return {};
       }
       const self: any = this;
-      const query = {
-        query: '{ albums { _id title description } }'
-      };
+      const body = new URLSearchParams();
+      body.set('query', '{ albums { _id title description } }');
       try {
-        const { data } = await self.$http.post('/api/graphql', query).json();
-        console.log(data);
-        return data;
+        const response = await self.$http.post('/api/graphql', { body });
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const parsed = await response.json();
+        console.log(parsed);
+        return parsed;
       } catch (e) {
         console.error(e);
         return {};
