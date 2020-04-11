@@ -60,6 +60,7 @@ export default Vue.extend({
   created() {
     this.debounceDescription = debounce(this.setDescription, 1000);
     this.debounceTitle = debounce(this.setTitle, 1000);
+    this.fetchAlbums();
   },
   methods: {
     async fetchAlbums(): Promise<{ [key: string]: any }> {
@@ -70,9 +71,14 @@ export default Vue.extend({
       const query = {
         query: '{ albums { _id title description } }'
       };
-      const { data } = await self.$http.post('/api/graphql', query);
-      console.log(data);
-      return data;
+      try {
+        const { data } = await self.$http.post('/api/graphql', query).json();
+        console.log(data);
+        return data;
+      } catch (e) {
+        console.error(e);
+        return {};
+      }
     },
     noop: (e: Event) => e.preventDefault(),
     sanitizer: (s: string): string | null => {
