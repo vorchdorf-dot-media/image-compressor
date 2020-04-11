@@ -67,9 +67,9 @@ export default Vue.extend({
       if (!this.upload) {
         return {};
       }
-      const self: any = this;
-      const body = new URLSearchParams();
-      body.set('query', '{ albums { _id title description } }');
+      const body = JSON.stringify({
+        query: '{ albums { _id title description } }'
+      });
       try {
         const res = await self.$http.$post('api/graphql', body, {
           prefixUrl: '/'
