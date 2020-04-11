@@ -34,10 +34,12 @@ export default Vue.extend({
     debounceTitle?: (e: KeyboardEvent, title: string) => void;
     description?: string;
     title?: string;
+    upload: boolean;
   } {
     return {
       description: undefined,
-      title: undefined
+      title: undefined,
+      upload: process.env.UPLOAD === 'true'
     };
   },
   computed: {
@@ -60,6 +62,18 @@ export default Vue.extend({
     this.debounceTitle = debounce(this.setTitle, 1000);
   },
   methods: {
+    async fetchAlbums(): Promise<{ [key: string]: any }> {
+      if (!this.upload) {
+        return {};
+      }
+      const self: any = this;
+      const query = {
+        query: '{ albums { _id title description } }'
+      };
+      const { data } = await self.$http.post('/api/graphql', query);
+      console.log(data);
+      return data;
+    },
     noop: (e: Event) => e.preventDefault(),
     sanitizer: (s: string): string | null => {
       const sanitized = s && s.trim();

@@ -19,6 +19,7 @@
     "test:jest": "jest"
   },
   "dependencies": {
+    "@nuxt/http": "^0.4.0",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@saschazar/wasm-exif": "^1.0.1",

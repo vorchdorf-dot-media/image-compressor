@@ -64,6 +64,7 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxt/http',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
