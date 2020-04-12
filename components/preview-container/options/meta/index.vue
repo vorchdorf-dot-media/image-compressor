@@ -72,11 +72,9 @@ export default Vue.extend({
         query: '{ albums { _id title description } }'
       };
       try {
-        const res = await self.$http
-          .setHeader('content-type', 'application/json')
-          .$post('api/graphql', body, {
-            prefixUrl: '/'
-          });
+        const res = await self.$http.$post('api/graphql', body, {
+          prefixUrl: '/'
+        });
         console.log(res);
         return res;
       } catch (e) {
