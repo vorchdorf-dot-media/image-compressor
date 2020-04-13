@@ -16,6 +16,27 @@ export default {
     MenuContainer,
     PreviewContainer,
     ThumbnailContainer
+  },
+  async fetch(): Promise<void> {
+    if (process.env.UPLOAD !== 'true') {
+      return;
+    }
+    const self: any = this;
+    const body = {
+      query: '{ albums { _id title description } }'
+    };
+    try {
+      const { data: { albums = [] } = {} } = await self.$http.$post(
+        'api/graphql',
+        body,
+        {
+          prefixUrl: '/'
+        }
+      );
+      this.$store.commit('albums/set', albums);
+    } catch (e) {
+      console.error(e);
+    }
   }
 };
 </script>
