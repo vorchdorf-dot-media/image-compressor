@@ -12,6 +12,9 @@ export default Vue.extend({
   components: {
     CloudUploadIcon
   },
+  created(): void {
+    this.$store.dispatch('albums/fetch');
+  },
   props: {
     disabled: {
       type: Boolean,
