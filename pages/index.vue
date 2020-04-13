@@ -33,7 +33,7 @@ export default {
           prefixUrl: '/'
         }
       );
-      this.$store.commit('albums/set', albums);
+      self.$store.commit('albums/set', albums);
     } catch (e) {
       console.error(e);
     }
