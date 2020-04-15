@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="disabled" @click="logger">
+  <button :disabled="disabled" @click="upload">
     <CloudUploadIcon />
     <span>Upload</span>
   </button>
@@ -12,18 +12,19 @@ export default Vue.extend({
   components: {
     CloudUploadIcon
   },
-  created(): void {
-    this.$store.dispatch('albums/fetch');
-  },
   props: {
     disabled: {
       type: Boolean,
       required: true
     }
   },
+  created(): void {
+    this.$store.dispatch('albums/fetch');
+  },
   methods: {
-    logger(e: MouseEvent) {
-      console.log(e);
+    upload(e: MouseEvent): void {
+      e.preventDefault();
+      this.$store.dispatch('queue/upload');
     }
   }
 });

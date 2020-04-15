@@ -55,7 +55,7 @@ export const getters = {
 };
 
 export const actions = {
-  async encode(context: any) {
+  async encode(context: any): Promise<void> {
     const timestamp = Date.now();
     const { mimetype, id } = context.rootGetters['statemachine/state'] || {};
     const { buffer, height, width } =
@@ -91,5 +91,80 @@ export const actions = {
     };
 
     encodeWorker.postMessage(payload);
+  },
+  async upload(context: any): Promise<void> {
+    const self: any = this;
+    const { state: { images = {} } = {} } = context;
+    try {
+      const promises = await Promise.all(
+        Object.keys(images).map(async (id: string) => {
+          const {
+            buffer,
+            description,
+            exif,
+            height,
+            mimetype,
+            title,
+            width
+          } = context.getters.image(id);
+
+          try {
+            const operations = {
+              query:
+                'mutation createPicture($file: Upload!, $picture: PictureInput!) {  createPicture(file: $file, picture: $picture) {    _id    title    src  }}',
+              variables: {
+                picture: {
+                  description,
+                  exif,
+                  height,
+                  mimetype,
+                  title,
+                  width
+                }
+              },
+              operationName: 'createPicture'
+            };
+            const formData = new FormData();
+            formData.append('operations', JSON.stringify(operations));
+            formData.append('map', JSON.stringify({ 0: ['variables.file'] }));
+            formData.append('0', new Blob([buffer], { type: mimetype }));
+
+            context.commit('set', {
+              ...context.getters.image(id),
+              upload: UPLOAD.LOADING
+            });
+
+            const { id: stateId } = context.rootGetters['statemachine/state'];
+
+            const { _id } = await self.$http.$post('api/graphql', formData, {
+              prefixUrl: '/'
+            });
+
+            context.commit('set', {
+              ...context.getters.image(id),
+              id: _id,
+              upload: UPLOAD.SUCCESS
+            });
+            context.commit('delete', id);
+
+            if (id === stateId) {
+              context.dispatch('statemachine/id', _id, { root: true });
+            }
+
+            return context.getters.image(id);
+          } catch (e) {
+            console.error(`${id}: ${e.message || e}`);
+            context.commit('set', {
+              ...context.getters.image(id),
+              upload: UPLOAD.ERROR
+            });
+            return context.getters.image(id);
+          }
+        })
+      );
+      console.log(promises);
+    } catch (e) {
+      console.error(e);
+    }
   }
 };

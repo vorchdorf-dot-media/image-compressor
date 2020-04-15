@@ -42,3 +42,9 @@ export const getters = {
   state: (current: { state: StateMachine }) => current.state,
   url: (current: { state: StateMachine }) => current.state.url
 };
+
+export const actions = {
+  id(context: any, id: string): void {
+    context.commit('set', { id });
+  }
+};
