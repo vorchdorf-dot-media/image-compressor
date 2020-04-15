@@ -1,8 +1,5 @@
 <template>
-  <button
-    :class="{ active, error, loading: loading && !active, ready, success }"
-    @click="open"
-  >
+  <button :class="{ active, error, loading, ready, success }" @click="open">
     <img :src="src" />
   </button>
 </template>
