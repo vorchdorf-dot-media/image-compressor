@@ -150,6 +150,11 @@ export const actions = {
                   upload: UPLOAD.SUCCESS
                 });
                 context.commit('delete', id);
+                context.dispatch(
+                  'originals/id',
+                  { id, update: _id },
+                  { root: true }
+                );
 
                 if (id === stateId) {
                   context.dispatch('statemachine/id', _id, { root: true });

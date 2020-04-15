@@ -33,3 +33,11 @@ export const mutations = {
 export const getters = {
   image: (current: OriginalsStore) => (id: string) => current.images.get(id)
 };
+
+export const actions = {
+  id(context: any, { id, update }: { id: string; update: string }): void {
+    const image: ImageStore = context.getters.image(id);
+    context.commit('set', { ...image, id: update });
+    context.commit('delete', id);
+  }
+};
