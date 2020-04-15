@@ -123,6 +123,9 @@ img {
 }
 
 .loading::after {
+  top: -8px;
+  left: calc(50% - 6px);
+  transform: unset;
   animation: rotating 3s infinite;
 }
 
