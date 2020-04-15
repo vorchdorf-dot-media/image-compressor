@@ -137,19 +137,23 @@ export const actions = {
 
               const { id: stateId } = context.rootGetters['statemachine/state'];
 
-              const { _id } = await self.$http.$post('api/graphql', formData, {
+              const {
+                data: { createPicture: { _id = '' } = {} } = {}
+              } = await self.$http.$post('api/graphql', formData, {
                 prefixUrl: '/'
               });
 
-              context.commit('set', {
-                ...context.getters.image(id),
-                id: _id,
-                upload: UPLOAD.SUCCESS
-              });
-              context.commit('delete', id);
+              if (_id.length > 0) {
+                context.commit('set', {
+                  ...context.getters.image(id),
+                  id: _id,
+                  upload: UPLOAD.SUCCESS
+                });
+                context.commit('delete', id);
 
-              if (id === stateId) {
-                context.dispatch('statemachine/id', _id, { root: true });
+                if (id === stateId) {
+                  context.dispatch('statemachine/id', _id, { root: true });
+                }
               }
 
               return context.getters.image(id);
