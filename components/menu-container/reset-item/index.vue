@@ -1,6 +1,6 @@
 <template>
   <button :disabled="clear" @click="open">
-    <EraserIcon aria-hidden />
+    <EraserIcon aria-hidden="true" />
     <span>Clear</span>
   </button>
 </template>
