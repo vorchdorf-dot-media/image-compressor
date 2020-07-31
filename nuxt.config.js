@@ -104,6 +104,9 @@ export default {
    ** PWA configuration
    */
   pwa: {
+    icon: {
+      purpose: ['maskable']
+    },
     manifest: {
       name: 'Image Compressor',
       short_name: 'Compressor',

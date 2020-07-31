@@ -21,7 +21,7 @@
   "dependencies": {
     "@nuxt/http": "^0.4.0",
     "@nuxtjs/dotenv": "^1.4.0",
-    "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/pwa": "nuxt-community/pwa-module",
     "@saschazar/wasm-exif": "^1.0.1",
     "@saschazar/wasm-image-loader": "^2.0.0",
     "@saschazar/wasm-mozjpeg": "^1.0.2",
