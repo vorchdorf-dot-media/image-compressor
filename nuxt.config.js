@@ -105,7 +105,7 @@ export default {
    */
   pwa: {
     icon: {
-      purpose: ['maskable']
+      purpose: ['maskable', 'any']
     },
     manifest: {
       name: 'Image Compressor',
